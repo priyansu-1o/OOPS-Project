@@ -19,8 +19,7 @@ void Playlist::removeSong(const string &songTitle){
 int Playlist::totalduration(){
     int totalSec=0;
     for(const auto &song:songs){
-        Duration dur=song.getDuration();
-        totalSec+=dur.sec;
+        totalSec += song.getDuration();
     }
     return totalSec;
 }

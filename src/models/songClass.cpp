@@ -5,40 +5,9 @@
 
 using namespace std;
 
-// Duration class implementations
-Duration::Duration(int s) : sec(s) {
-    // No need to normalize, store as seconds only
-}
-
-void Duration::normalize() {
-    // No-op: we store everything in seconds
-}
-
-bool Duration::operator==(const Duration &other) const {
-    return sec == other.sec;
-}
-
-bool Duration::operator!=(const Duration &other) const {
-    return !(*this == other);
-}
-
-ostream& operator<<(ostream &os, const Duration &d) {
-    os << d.sec; // Output seconds only
-    return os;
-}
-
-istream& operator>>(istream &is, Duration &d) {
-    is >> d.sec; // Input seconds only
-    return is;
-}
-
 // Song class implementations
 Song::Song() {
-    // setInfo();
-}
-
-void Song::getInfo() {
-    displayInfo();
+    setInfo();
 }
 
 void Song::displayInfo() {
