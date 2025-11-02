@@ -6,26 +6,6 @@
 
 using namespace std;
 
-// class Duration {
-// public:
-//     int min;
-//     int sec;
-    
-//     // Constructor
-//     Duration(int m = 0, int s = 0);
-    
-//     // Normalization function
-//     void normalize();
-    
-//     // Operator overloads
-//     bool operator==(const Duration &other) const;
-//     bool operator!=(const Duration &other) const;
-    
-//     // Friend functions for stream operators
-//     friend ostream& operator<<(ostream &os, const Duration &d);
-//     friend istream& operator>>(istream &is, Duration &d);
-// };
-
 class Song {
 protected:
     string title;
@@ -40,7 +20,6 @@ public:
     Song();
     
     // Getters
-    void getInfo();
     void displayInfo();
     string getId() const { return id; }
     string getTitle() const { return title; }
