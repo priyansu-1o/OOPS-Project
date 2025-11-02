@@ -20,7 +20,7 @@ int Playlist::totalduration(){
     int totalSec=0;
     for(const auto &song:songs){
         Duration dur=song.getDuration();
-        totalSec+=dur.min*60 + dur.sec;
+        totalSec+=dur.sec;
     }
     return totalSec;
 }
@@ -37,7 +37,7 @@ void Playlist::displaySongs() {
 
     int total=totalduration();
     std::cout << "-------------------------\n";
-    std::cout << "Total Duration: " << total / 60 << "m " << std::setw(2) << std::setfill('0') << total % 60 << "s\n";
+    std::cout << "Total Duration: " << total <<"s\n";
 }
 Playlist Playlist::operator+(const Playlist &other) const{
    Playlist merged("Merged: " + playlistName + " + " + other.playlistName);

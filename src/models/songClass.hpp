@@ -8,11 +8,10 @@ using namespace std;
 
 class Duration {
 public:
-    int min;
     int sec;
     
     // Constructor
-    Duration(int m = 0, int s = 0);
+    Duration(int s = 0);
     
     // Normalization function
     void normalize();
