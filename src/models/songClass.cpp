@@ -72,7 +72,7 @@ istream& operator>>(istream &is, Duration &d) {
 
 // Song class implementations
 Song::Song() {
-    setInfo();
+    // setInfo();
 }
 
 void Song::getInfo() {
