@@ -283,7 +283,7 @@ class window3
             //getline(cin,playlist_description);
 
             Playlist merged_playlist(playlist_name);
-            merged=MyPlaylists[m1]+MyPlaylists[m2];
+            merged_playlist=MyPlaylists[m1]+MyPlaylists[m2];
             MyPlaylists.push_back(merged_playlist);
 
             system("cls");
