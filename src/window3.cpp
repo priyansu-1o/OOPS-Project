@@ -1,7 +1,7 @@
-#include<bits/stdc++.h>
-#include<string>
+#include <bits/stdc++.h>
+#include <string>
 #include <cstdlib> 
-#include<vector>
+#include <vector>
 #include "models\songClass.hpp"
 #include "Core\playlist.hpp"
 //#include "mainmenu.cpp"
@@ -396,6 +396,6 @@ int main()
 {
     window3 test;
     test.w3();
-    
+
     return 0;
 }
