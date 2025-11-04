@@ -4,6 +4,7 @@
 #include <vector>
 #include "models\songClass.hpp"
 #include "Core\playlist.hpp"
+#include<conio.h>
 //#include "mainmenu.cpp"
 
 vector<Playlist> MyPlaylists;
@@ -28,16 +29,7 @@ void print_in_centre(string str)
     cout << string(leftPadding, ' ') << string(innerPadding, ' ') << str;
 }
 
-void go_to_playlist_main_page()
-{
-    char p_window='P';
-    string s="Press 'P' to go to Playlists-Operations Window: ";
-    do 
-    {
-        print_in_centre(s);
-        cin>>p_window;
-    }while(p_window!='P');
-}
+
 
 class window3
 {
@@ -47,19 +39,12 @@ class window3
             system("cls");
 
             string s1="Enter Name Of Playlist: ";
-            string s2="Give brief description regarding the playlist: ";
             string playlist_name;
-            string playlist_description;
-
             print_in_centre(s1);
             cin>>playlist_name;
             //getline(cin,playlist_name);
 
-            print_in_centre(s2);
-            cin>>playlist_description;
-            //getline(cin,playlist_description);
-
-            Playlist p1(playlist_name,playlist_description);
+            Playlist p1(playlist_name);
             MyPlaylists.push_back(p1);
             cout<<"\n\n";
             
@@ -73,11 +58,11 @@ class window3
 
             cout<<"\n\n";
 
-            go_to_playlist_main_page();
+       getch();
             
-            w3();
+            
         }
-
+        /*
         void add_song_to_playlist()
         {
             system("cls");
@@ -99,7 +84,7 @@ class window3
             cin>>song_index;
 
             int check=0;
-            for(int i=0;i<(((MyPlaylists[playlist_index]).songs).size());i++)
+            for(int i=0;i<(((MyPlaylists[playlist_index]).want_playlist_songs()).size());i++)
             {
                 if((library[song_index]).getTitle()==((MyPlaylists[playlist_index]).songs[i]).getTitle())
                 {
@@ -125,12 +110,11 @@ class window3
 
             cout<<"\n\n";
 
-            go_to_playlist_main_page();
-            
-            w3();
-        }
+          
+           
+        }*/
 
-        void remove_song_from_playlist()
+        /*void remove_song_from_playlist(int index)
         {
             system("cls");
 
@@ -164,12 +148,10 @@ class window3
 
             cout<<"\n\n";
 
-            go_to_playlist_main_page();
             
-            w3();
-        }
+        }*/
 
-        void find_playlist()
+       /* void find_playlist()
         {
             system("cls");
 
@@ -182,7 +164,7 @@ class window3
             int find=0;
             for(int i=0;i<MyPlaylists.size();i++)
             {
-                if(find_name==MyPlaylists[i].playlistName)
+                if(find_name==MyPlaylists[i].PLname)
                 {
                     find=1;
                     string s2="Playlist found at index = "+to_string(i);
@@ -201,18 +183,16 @@ class window3
 
             cout<<"\n\n";
 
-            char p_window='P';
-
-            go_to_playlist_main_page();
+        
             
-            w3();
+           
 
         }
-
+        */
         void display_all_playlists()
         {
             system("cls");
-
+            /*
             string s1="==Displayling All Playlists==";
             print_in_centre(s1);
 
@@ -220,14 +200,67 @@ class window3
 
             for(int i=0;i<MyPlaylists.size();i++)
             {
-                string s2=to_string(i)+". "+MyPlaylists[i].playlistName+", Total Songs = "+string((MyPlaylists[i].songs).size());
+                string s2="  "+MyPlaylists[i].PLname()+", Total Songs = "+to_string((MyPlaylists[i].want_playlist_songs()).size());
                 print_in_centre(s2);
                 cout<<"\n";
+            }*/
+            if(MyPlaylists.size()==0)
+            {
+                string s10="There are no playlists!";
+                print_in_centre(s10);
+                getch();
+                return;
             }
+            int i=0;
+            while(true)
+            {
+                for(int i=0;i<15;i++)
+            {
+                cout<<endl;
+            }
+                int counter=0;
+                for(auto& a:MyPlaylists)
+                {
+                    string s2="  "+a.PLname()+", Total Songs = "+to_string((a.want_playlist_songs()).size());
+                    if(counter==i)
+                    {
+                        cout<<"->"<<s2;
+                    }
+                    else
+                    cout<<"  "<<s2;
+                    counter++;
+                }
+                char c;
+                c=getch();
+                if(c=='w')
+                {
+                    if(i==0)
+                    {
+                        ;
+                    }
+                    else{
+                        i--;
+                    }
+                }
+                else if(c=='s')
+                {
+                        if(i==MyPlaylists.size()-1)
+                        {
+                            i=0;
+                        }
+                        else{
+                            i++;
+                        }
+                }
+                else if(c=='e'||c=='E')
+                        break;
+                system("cls");
+            }
+            getch();
 
         }
 
-        void delete_playlist()
+       /* void delete_playlist()
         {
             system("cls");
 
@@ -252,9 +285,7 @@ class window3
             
             cout<<"\n\n";
 
-            go_to_playlist_main_page();
-
-            w3();
+           
         }
 
         void merge_playlists()
@@ -278,34 +309,34 @@ class window3
             cin>>playlist_name;
             //getline(cin,playlist_name);
 
-            print_in_centre(s3);
-            cin>>playlist_description;
-            //getline(cin,playlist_description);
-
             Playlist merged_playlist(playlist_name,playlist_description);
             merged_playlist=MyPlaylists[m1]+MyPlaylists[m2];
             MyPlaylists.push_back(merged_playlist);
 
             system("cls");
-
+            string s4="Merged Playlist successfully created!";
+            print_in_centre(s4);
+            cout<<"\n\n"
             display_all_playlists();
 
             cout<<"\n\n";
 
-            go_to_playlist_main_page();
-
-            w3();
+            
         }
-
+                */
         void w3()
         {
             system("cls");
-            print_window3_ui();
+           while(true)
+           {
+            system("cls");
+             print_window3_ui();
 
             int choice;
             string s1="Enter desired choice: ";
             print_in_centre(s1);
             cin>>choice;
+               
 
             switch(choice)
             {
@@ -316,17 +347,17 @@ class window3
                 }
                 case 2:
                 {
-                    add_song_to_playlist();
+                    //add_song_to_playlist();
                     break;
                 }
                 case 3:
                 {
-                    remove_song_from_playlist();
+                   // remove_song_from_playlist();
                     break;
                 }
                 case 4:
                 {
-                    find_playlist();
+                    // find_playlist();
                     break;
                 }
                 case 5:
@@ -336,12 +367,12 @@ class window3
                 }
                 case 6:
                 {
-                    delete_playlist();
+                   // delete_playlist();
                     break;
                 }
                 case 7:
                 {
-                    merge_playlists();
+                    //merge_playlists();
                     break;
                 }
                 case 8:
@@ -354,7 +385,16 @@ class window3
                     cout<<"Invalid Choice!";
                     break;
                 }
+                
             }
+             cout<<"enter E/e to exit";
+             char c;
+             cin>>c;
+             if(c=='E'||c=='e')
+             {
+                    break;
+             }
+           }
         }
 
         void print_window3_ui()
