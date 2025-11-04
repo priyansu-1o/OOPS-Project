@@ -29,7 +29,7 @@ bool Song::operator!=(const Song &other) const {
 ostream& operator<<(ostream &os, const Song &s) {
     os << "[Song] '" << s.title << "' by " << s.artist
        << " | Genre: " << s.genre
-       << " | Duration: " << s.duration;
+       << " | Duration: " << s.duration << "s";
     return os;
 }
 
@@ -40,7 +40,7 @@ istream& operator>>(istream &is, Song &s) {
     getline(is >> ws, s.artist);
     cout << "Enter genre: ";
     getline(is >> ws, s.genre);
-    cout << "Enter duration (format: minutes:seconds or minutes seconds): ";
-    cin>>s.duration;
+    cout << "Enter duration (in seconds): ";
+    is >> s.duration;
     return is;
 }
