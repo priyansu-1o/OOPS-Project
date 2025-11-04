@@ -1,19 +1,85 @@
-
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <cstdlib>
 using namespace std;
+class developerwindow
+{
+public:
+    void dev(string p)
+    {
+        string password = "Arpit Randi";
+        system("cls");
+        if (p == password)
+        {
+            cout << "\nAccess Granted! Welcome, Developer.\n";
+            cout << "-------------------------------------\n";
+            cout << "1. yyy\n";
+            cout << "2. xxx\n";
+            cout << "3. Exit Developer Mode\n";
+        }
+        else
+            cout << "\nIcorrect Password! TMKC Bhak!!\n";
+    }
+};
 class mainwindow
 {
 public:
     void window1()
     {
-        printMenuBox();
-        int choice;
-        cin >> choice;
-        cout << "\nYou entered: " << choice << endl;
+        while (true)
+        {
+            printMenuBox();
+            int choice;
+            cin >> choice;
+            cout << "\nYou entered: " << choice << endl;
 
+            switch (choice)
+            {
+            case 1:
+                system("cls");
+                cout << "View All Songs feature coming soon...\n";
+                break;
+            case 2:
+                system("cls");
+                cout << "Search Song feature coming soon...\n";
+                break;
+            case 3:
+                system("cls");
+                cout << "Playlists feature coming soon...\n";
+                break;
+            case 4:
+                system("cls");
+                cout << "Play Song feature coming soon...\n";
+                break;
+            case 5:
+            {
+                system("cls");
+                string pass;
+                cout << "==============================\n";
+                cout << "   Developer Access Required\n";
+                cout << "==============================\n\n";
+                cout << "Enter Password: ";
+                cin.ignore();
+                getline(cin, pass);
+                developerwindow d;
+                d.dev(pass);
+                break;
+            }
+            case 6:
+                system("cls");
+                cout << "Exiting and saving...\n";
+                return;
+            default:
+                cout << "\nINVALID CHOICE\n";
+            }
+
+            cout << "\nPress any key to return to the main menu...\n";
+            system("pause");
+            system("cls");
+        }
     }
+
     void printMenuBox()
     {
         const int totalCols = 150;
@@ -33,11 +99,10 @@ public:
             "===== MUSIC LIBRARY MAIN MENU =====",
             "1. View All Songs",
             "2. Search Song",
-            "3. Create Playlist",
-            "4. Add Song to Playlist",
-            "5. Show Playlist Songs",
-            "6. Play Song",
-            "7. Save & Exit",
+            "3. Playlists",
+            "4. Play Song",
+            "5. Developer Options",
+            "6. Save & Exit",
             "Enter choice: "};
 
         for (const string &line : lines)
