@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 #include "library.hpp"
 #include "../models/songClass.hpp"
+#include<conio.h>
 using namespace std;
 
 MusicLibrary::MusicLibrary() : totalSongs(0), totalDuration(0) {}
@@ -72,58 +73,193 @@ vector<Song*> MusicLibrary :: searchSongs (const string& query){
 }
 
 void MusicLibrary::displayAllSongs() const {
-    // Simple header approach
-    cout << "\n🎵 MUSIC LIBRARY - ALL SONGS (" << allSongs.size() << " songs) 🎵" << endl;
-    cout << string(120, '=') << endl;
-    
-    // Fixed column widths
-    const int NUM_WIDTH = 4;
-    const int TITLE_WIDTH = 40;
-    const int ARTIST_WIDTH = 30;
-    const int GENRE_WIDTH = 20;
-    const int DURATION_WIDTH = 10;
-    
-    // Header
-    cout << left 
-         << setw(NUM_WIDTH) << "No." 
-         << setw(TITLE_WIDTH) << "TITLE" 
-         << setw(ARTIST_WIDTH) << "ARTIST" 
-         << setw(GENRE_WIDTH) << "GENRE" 
-         << setw(DURATION_WIDTH) << "DURATION" 
-         << endl;
-    cout << string(120, '-') << endl;
-    
-    if (allSongs.empty()) {
-        cout << "No songs in the library" << endl;
-    } else {
-        for (size_t i = 0; i < allSongs.size(); i++) {
-            const Song& song = allSongs[i];
+    int selectedIndex = 0;
+    const int pageSize = 15; // Number of songs to show per "page"
+    int currentPage = 0;
+    int totalPages = max(1, (int)(allSongs.size() + pageSize - 1) / pageSize); // Ensure at least 1 page
+
+    while (true) {
+        system("cls");
+        int startIdx = currentPage * pageSize;
+        int endIdx = min(startIdx + pageSize, (int)allSongs.size());
+        
+        // Display header
+        const int totalWidth = 155;
+        const int contentWidth = 120;
+        
+        cout << string((totalWidth - contentWidth) / 2, ' ') 
+             << "+" << string(contentWidth - 2, '-') << "+" << endl;
+        
+        cout << string((totalWidth - contentWidth) / 2, ' ') 
+             << "|" << string(contentWidth - 2, ' ') << "|" << endl;
+        
+        string header = "MUSIC LIBRARY - ALL SONGS (" + to_string(allSongs.size()) + " songs) - Page " + 
+                       to_string(currentPage + 1) + "/" + to_string(totalPages);
+        int headerPadding = (contentWidth - 2 - header.length()) / 2;
+        cout << string((totalWidth - contentWidth) / 2, ' ') 
+             << "|" << string(headerPadding, ' ') << header 
+             << string(contentWidth - 2 - headerPadding - header.length(), ' ') << "|" << endl;
+        
+        cout << string((totalWidth - contentWidth) / 2, ' ') 
+             << "|" << string(contentWidth - 2, ' ') << "|" << endl;
+        cout << string((totalWidth - contentWidth) / 2, ' ') 
+             << "+" << string(contentWidth - 2, '-') << "+" << endl;
+        
+        // Column headers
+        const int numWidth = 6;
+        const int titleWidth = 30;
+        const int artistWidth = 25;
+        const int genreWidth = 20;
+        const int durationWidth = 12;
+        
+        string headers = "| " 
+                       + string((numWidth - 3) / 2, ' ') + "No." + string(numWidth - 3 - (numWidth - 3) / 2, ' ')
+                       + " | "
+                       + string((titleWidth - 5) / 2, ' ') + "TITLE" + string(titleWidth - 5 - (titleWidth - 5) / 2, ' ')
+                       + " | "
+                       + string((artistWidth - 6) / 2, ' ') + "ARTIST" + string(artistWidth - 6 - (artistWidth - 6) / 2, ' ')
+                       + " | "
+                       + string((genreWidth - 5) / 2, ' ') + "GENRE" + string(genreWidth - 5 - (genreWidth - 5) / 2, ' ')
+                       + " | "
+                       + string((durationWidth - 8) / 2, ' ') + "DURATION" + string(durationWidth - 8 - (durationWidth - 8) / 2, ' ')
+                       + " |";
+        
+        cout << string((totalWidth - headers.length()) / 2, ' ') << headers << endl;
+        cout << string((totalWidth - contentWidth) / 2, ' ') 
+             << "+" << string(contentWidth - 2, '-') << "+" << endl;
+        
+        // Display songs for current page
+        if (allSongs.empty()) {
+            string noSongs = "No songs in the library";
+            int padding = (contentWidth - 2 - noSongs.length()) / 2;
+            cout << string((totalWidth - contentWidth) / 2, ' ') 
+                 << "|" << string(padding, ' ') << noSongs 
+                 << string(contentWidth - 2 - padding - noSongs.length(), ' ') << "|" << endl;
+        } else {
+            for (int i = startIdx; i < endIdx; i++) {
+                const Song& song = allSongs[i];
+                
+                string title = song.getTitle();
+                if (title.length() > titleWidth - 2) 
+                    title = title.substr(0, titleWidth - 3) + "...";
+                
+                string artist = song.getArtist();
+                if (artist.length() > artistWidth - 2) 
+                    artist = artist.substr(0, artistWidth - 3) + "...";
+                
+                string genre = song.getGenre();
+                if (genre.length() > genreWidth - 2) 
+                    genre = genre.substr(0, genreWidth - 3) + "...";
+                
+                string duration = to_string(song.getDuration());
+                string number = to_string(i + 1) + ".";
+                
+                string row = "| "
+                           + string((numWidth - number.length()) / 2, ' ') + number + string(numWidth - number.length() - (numWidth - number.length()) / 2, ' ')
+                           + " | "
+                           + string((titleWidth - title.length()) / 2, ' ') + title + string(titleWidth - title.length() - (titleWidth - title.length()) / 2, ' ')
+                           + " | "
+                           + string((artistWidth - artist.length()) / 2, ' ') + artist + string(artistWidth - artist.length() - (artistWidth - artist.length()) / 2, ' ')
+                           + " | "
+                           + string((genreWidth - genre.length()) / 2, ' ') + genre + string(genreWidth - genre.length() - (genreWidth - genre.length()) / 2, ' ')
+                           + " | "
+                           + string((durationWidth - duration.length()) / 2, ' ') + duration + string(durationWidth - duration.length() - (durationWidth - duration.length()) / 2, ' ')
+                           + " |";
+                
+                // Highlight selected song with arrow
+                if (i == selectedIndex) {
+                    cout << string((totalWidth - row.length()) / 2 - 3, ' ') 
+                         << "-> " << row << endl;
+                } else {
+                    cout << string((totalWidth - row.length()) / 2, ' ') << row << endl;
+                }
+            }
+        }
+        
+        // Footer with instructions
+        cout << string((totalWidth - contentWidth) / 2, ' ') 
+             << "+" << string(contentWidth - 2, '-') << "+" << endl;
+        
+        string footer = "Total Duration: " + to_string(totalDuration) + " seconds";
+        int footerPadding = (contentWidth - 2 - footer.length()) / 2;
+        cout << string((totalWidth - contentWidth) / 2, ' ') 
+             << "|" << string(footerPadding, ' ') << footer 
+             << string(contentWidth - 2 - footerPadding - footer.length(), ' ') << "|" << endl;
+        
+        string instructions = "W/S: Navigate | A/D: Change Page | Enter: Select | Q: Quit";
+        int instPadding = (contentWidth - 2 - instructions.length()) / 2;
+        cout << string((totalWidth - contentWidth) / 2, ' ') 
+             << "|" << string(instPadding, ' ') << instructions 
+             << string(contentWidth - 2 - instPadding - instructions.length(), ' ') << "|" << endl;
+        
+        cout << string((totalWidth - contentWidth) / 2, ' ') 
+             << "+" << string(contentWidth - 2, '-') << "+" << endl;
+        
+        // Get user input
+        char c = getch();
+        
+        if (c == 'w' || c == 'W') { // Move up - WITH LOOPING
+            if (selectedIndex > 0) {
+                selectedIndex--;
+            } else {
+                // Loop to bottom when at top
+                selectedIndex = allSongs.size() - 1;
+                currentPage = totalPages - 1; // Go to last page
+            }
             
-            string title = song.getTitle();
-            if (title.length() > TITLE_WIDTH - 2) 
-                title = title.substr(0, TITLE_WIDTH - 3) + "...";
+            // If we move above current page, change page
+            if (selectedIndex < currentPage * pageSize && currentPage > 0) {
+                currentPage--;
+            }
+        }
+        else if (c == 's' || c == 'S') { // Move down - WITH LOOPING
+            if (selectedIndex < allSongs.size() - 1) {
+                selectedIndex++;
+            } else {
+                // Loop to top when at bottom
+                selectedIndex = 0;
+                currentPage = 0; // Go to first page
+            }
             
-            string artist = song.getArtist();
-            if (artist.length() > ARTIST_WIDTH - 2) 
-                artist = artist.substr(0, ARTIST_WIDTH - 3) + "...";
-            
-            string genre = song.getGenre();
-            if (genre.length() > GENRE_WIDTH - 2) 
-                genre = genre.substr(0, GENRE_WIDTH - 3) + "...";
-            
-            cout << left 
-                 << setw(NUM_WIDTH) << i + 1 
-                 << setw(TITLE_WIDTH) << title 
-                 << setw(ARTIST_WIDTH) << artist 
-                 << setw(GENRE_WIDTH) << genre 
-                 << setw(DURATION_WIDTH) << song.getDuration() 
-                 << endl;
+            // If we move beyond current page, change page
+            if (selectedIndex >= (currentPage + 1) * pageSize && currentPage < totalPages - 1) {
+                currentPage++;
+            }
+        }
+        else if (c == 'a' || c == 'A') { // Previous page - WITH LOOPING
+            if (currentPage > 0) {
+                currentPage--;
+            } else {
+                // Loop to last page when at first page
+                currentPage = totalPages - 1;
+            }
+            selectedIndex = currentPage * pageSize; // Select first item on new page
+        }
+        else if (c == 'd' || c == 'D') { // Next page - WITH LOOPING
+            if (currentPage < totalPages - 1) {
+                currentPage++;
+            } else {
+                // Loop to first page when at last page
+                currentPage = 0;
+            }
+            selectedIndex = currentPage * pageSize; // Select first item on new page
+        }
+        else if (c == 13 || c == 10) { // Enter key - song selected
+            system("cls");
+            if (!allSongs.empty()) {
+                cout << "\n\nSelected Song: " << allSongs[selectedIndex].getTitle() 
+                     << " by " << allSongs[selectedIndex].getArtist() << endl;
+                cout << "Genre: " << allSongs[selectedIndex].getGenre() << endl;
+                cout << "Duration: " << allSongs[selectedIndex].getDuration() << " seconds" << endl;
+            }
+            cout << "Press any key to continue...";
+            getch();
+            break;
+        }
+        else if (c == 'q' || c == 'Q') { // Quit
+            break;
         }
     }
-    
-    cout << string(120, '=') << endl;
-    cout << "Total Duration: " << totalDuration << " seconds" << endl;
-    cout << endl;
 }
 
 void MusicLibrary::displayStatistics() const {
