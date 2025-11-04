@@ -59,7 +59,7 @@ class window3
             cin>>playlist_description;
             //getline(cin,playlist_description);
 
-            Playlist p1(playlist_name);
+            Playlist p1(playlist_name,playlist_description);
             MyPlaylists.push_back(p1);
             cout<<"\n\n";
             
@@ -282,7 +282,7 @@ class window3
             cin>>playlist_description;
             //getline(cin,playlist_description);
 
-            Playlist merged_playlist(playlist_name);
+            Playlist merged_playlist(playlist_name,playlist_description);
             merged_playlist=MyPlaylists[m1]+MyPlaylists[m2];
             MyPlaylists.push_back(merged_playlist);
 
