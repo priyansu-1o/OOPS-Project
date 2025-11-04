@@ -9,6 +9,8 @@ class Playlist{
     public:
     Playlist();
     Playlist(string name);
+    string PLname();
+    void changename(string n);
     void addSong(const Song &song);
     void removeSong(const string &songTitle);
     int totalduration();

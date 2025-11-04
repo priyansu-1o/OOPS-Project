@@ -49,3 +49,11 @@ std::ostream& operator<<(std::ostream &os, const Playlist &p) {
     os << "[Playlist] " << p.playlistName << " (" << p.songs.size() << " songs)";
     return os;
 }
+void Playlist::changename(string n)
+{
+    playlistName=n;
+}
+string Playlist::PLname()
+{
+    return playlistName;
+}
