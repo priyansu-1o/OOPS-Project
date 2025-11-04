@@ -229,6 +229,7 @@ class window3
                     else
                     cout<<"  "<<s2;
                     counter++;
+                    cout<<endl;
                 }
                 char c;
                 c=getch();
