@@ -24,7 +24,7 @@ void print_in_centre(string str)
     {
         innerPadding = 0;
     }
-    cout<<"\n";              
+                  
     cout << string(leftPadding, ' ') << string(innerPadding, ' ') << str;
 }
 
