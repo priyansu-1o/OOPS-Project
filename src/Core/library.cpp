@@ -71,103 +71,59 @@ vector<Song*> MusicLibrary :: searchSongs (const string& query){
     return results;
 }
 
-// void MusicLibrary :: createPlaylist(const string& name, const string& desciption = ""){
-//     for (auto& playlist : playlists) {
-//         if (playlist.getName() == name) {
-//             cout << "Playlist '" << name << "' already exists!" << endl;
-//             return;
-//         }
-//     }
-//     Playlist newPlaylist(name);
-//     playlists.push_back(newPlaylist);
-//     cout << "Playlist '" << name << "' created successfully!" << endl;
-// }
-
-void MusicLibrary :: displayAllSongs() const {
-    const int totalCols = 150;
-    const int boxWidth = 140;
-
-    int leftPadding = (totalCols - boxWidth) / 2;
-    int totalRows = 40;
+void MusicLibrary::displayAllSongs() const {
+    // Simple header approach
+    cout << "\n🎵 MUSIC LIBRARY - ALL SONGS (" << allSongs.size() << " songs) 🎵" << endl;
+    cout << string(120, '=') << endl;
     
-    int boxHeight = allSongs.size() + 8;
-    int topPadding = (totalRows - boxHeight) / 2;
-
-    for (int i = 0; i < topPadding; i++)
-        cout << endl;
-
-    // Top border
-    cout << string(leftPadding, ' ') << " " << string(boxWidth - 2, '_') << " " << endl;
-
+    // Fixed column widths
+    const int NUM_WIDTH = 4;
+    const int TITLE_WIDTH = 40;
+    const int ARTIST_WIDTH = 30;
+    const int GENRE_WIDTH = 20;
+    const int DURATION_WIDTH = 10;
+    
     // Header
-    string header = "🎵 MUSIC LIBRARY - ALL SONGS (" + to_string(allSongs.size()) + " songs) 🎵";
-    int headerPadding = (boxWidth - 2 - header.length()) / 2;
-    cout << string(leftPadding, ' ')
-         << "|" << string(headerPadding, ' ') << header
-         << string(boxWidth - 2 - headerPadding - header.length(), ' ') << "|" << endl;
-
-    // Column headers with formatting
-    string headers = string(4, ' ') + 
-                    string(35, ' ') + "TITLE" + string(35, ' ') + " | " +
-                    string(25, ' ') + "ARTIST" + string(25, ' ') + " | " +
-                    string(15, ' ') + "GENRE" + string(15, ' ') + " | " +
-                    "DURATION";
-    cout << string(leftPadding, ' ') 
-         << "|" << string(boxWidth - 2, '-') << "|" << endl;
-    cout << string(leftPadding, ' ')
-         << "|" << headers << "|" << endl;
-    cout << string(leftPadding, ' ') 
-         << "|" << string(boxWidth - 2, '-') << "|" << endl;
-
+    cout << left 
+         << setw(NUM_WIDTH) << "No." 
+         << setw(TITLE_WIDTH) << "TITLE" 
+         << setw(ARTIST_WIDTH) << "ARTIST" 
+         << setw(GENRE_WIDTH) << "GENRE" 
+         << setw(DURATION_WIDTH) << "DURATION" 
+         << endl;
+    cout << string(120, '-') << endl;
+    
     if (allSongs.empty()) {
-        string noSongs = "No songs in the library";
-        int noSongsPadding = (boxWidth - 2 - noSongs.length()) / 2;
-        cout << string(leftPadding, ' ')
-             << "|" << string(noSongsPadding, ' ') << noSongs
-             << string(boxWidth - 2 - noSongsPadding - noSongs.length(), ' ') << "|" << endl;
+        cout << "No songs in the library" << endl;
     } else {
         for (size_t i = 0; i < allSongs.size(); i++) {
             const Song& song = allSongs[i];
             
-            // Format each field with fixed widths
             string title = song.getTitle();
-            if (title.length() > 40) title = title.substr(0, 37) + "...";
+            if (title.length() > TITLE_WIDTH - 2) 
+                title = title.substr(0, TITLE_WIDTH - 3) + "...";
             
             string artist = song.getArtist();
-            if (artist.length() > 30) artist = artist.substr(0, 27) + "...";
+            if (artist.length() > ARTIST_WIDTH - 2) 
+                artist = artist.substr(0, ARTIST_WIDTH - 3) + "...";
             
             string genre = song.getGenre();
-            if (genre.length() > 20) genre = genre.substr(0, 17) + "...";
+            if (genre.length() > GENRE_WIDTH - 2) 
+                genre = genre.substr(0, GENRE_WIDTH - 3) + "...";
             
-            string duration = to_string(song.getDuration());
-            
-            // Create formatted line
-            string songLine = to_string(i + 1) + ". " +
-                            string(40 - title.length()/2, ' ') + title + 
-                            " | " + string(30 - artist.length()/2, ' ') + artist +
-                            " | " + string(20 - genre.length()/2, ' ') + genre +
-                            " | " + string(8 - duration.length()/2, ' ') + duration;
-            
-            cout << string(leftPadding, ' ')
-                 << "|" << songLine 
-                 << string(boxWidth - 2 - songLine.length(), ' ') << "|" << endl;
+            cout << left 
+                 << setw(NUM_WIDTH) << i + 1 
+                 << setw(TITLE_WIDTH) << title 
+                 << setw(ARTIST_WIDTH) << artist 
+                 << setw(GENRE_WIDTH) << genre 
+                 << setw(DURATION_WIDTH) << song.getDuration() 
+                 << endl;
         }
     }
-
-    // Footer
-    cout << string(leftPadding, ' ') 
-         << "|" << string(boxWidth - 2, '-') << "|" << endl;
     
-    string footer = "Total Duration: " + to_string(totalDuration);
-    int footerPadding = (boxWidth - 2 - footer.length()) / 2;
-    cout << string(leftPadding, ' ')
-         << "|" << string(footerPadding, ' ') << footer
-         << string(boxWidth - 2 - footerPadding - footer.length(), ' ') << "|" << endl;
-
-    cout << string(leftPadding, ' ') << "|" << string(boxWidth - 2, '_') << "|" << endl;
-    
-    for (int i = 0; i < 3; i++)
-        cout << endl;
+    cout << string(120, '=') << endl;
+    cout << "Total Duration: " << totalDuration << " seconds" << endl;
+    cout << endl;
 }
 
 void MusicLibrary::displayStatistics() const {
