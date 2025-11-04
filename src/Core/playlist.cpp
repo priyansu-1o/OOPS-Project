@@ -47,7 +47,6 @@ Playlist Playlist::operator+(const Playlist &other) const{
 std::ostream& operator<<(std::ostream &os, const Playlist &p) {
     os << "[Playlist] " << p.playlistName << " (" << p.songs.size() << " songs)";
     return os;
-<<<<<<< HEAD
 }
 void Playlist::changename(string n)
 {
@@ -57,6 +56,3 @@ string Playlist::PLname()
 {
     return playlistName;
 }
-=======
-}
->>>>>>> ed8be31b36450ba7d44128c12acf146aeafe3851
