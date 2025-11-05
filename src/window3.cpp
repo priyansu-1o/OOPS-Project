@@ -308,7 +308,7 @@ class window3
                 }
                 else if(c=='o' || c=='O')
                 {
-                    //open playlist and display songs
+                        
                 }
                 else if(c=='d' || c=='D')
                 {
@@ -574,6 +574,6 @@ int main()
 {
     window3 test;
     test.w3();
-    
+
     return 0;
 }
