@@ -9,8 +9,9 @@ class Playlist{
     public:
     Playlist();
     Playlist(string name);
-    string PLname();
     void changename(string n);
+    string PLname();
+    vector<Song> want_playlist_songs();
     void addSong(const Song &song);
     void removeSong(const string &songTitle);
     int totalduration();
