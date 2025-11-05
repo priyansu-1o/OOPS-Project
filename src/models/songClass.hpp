@@ -16,8 +16,9 @@ protected:
     int duration;
 
 public:
-    // Constructor
+    // Constructors
     Song();
+    Song(const string &t, const string &a, const string &g, int d);
     
     // Getters
     void displayInfo();

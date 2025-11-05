@@ -10,6 +10,11 @@ Song::Song() {
     setInfo();
 }
 
+Song::Song(const string &t, const string &a, const string &g, int d) 
+    : title(t), artist(a), genre(g), duration(d) {
+    // Don't call setInfo() for this constructor
+}
+
 void Song::displayInfo() {
     cout << *this << endl;
 }

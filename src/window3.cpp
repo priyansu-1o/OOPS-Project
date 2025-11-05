@@ -57,9 +57,186 @@ class window3
 
             cout<<"\n\n";
             
-            string s5="press any key to continue: ";
-            print_in_centre(s5);
-            getch();  
+            // Show playlist management menu for the newly created playlist
+            manage_single_playlist(MyPlaylists.size() - 1);
+        }
+
+        void manage_single_playlist(int playlist_index)
+        {
+            while(true)
+            {
+                system("cls");
+                cout<<"\n\n";
+                string title = "Managing Playlist: " + MyPlaylists[playlist_index].PLname();
+                print_in_centre(title);
+                cout<<"\n\n";
+                
+                // Display current playlist info
+                MyPlaylists[playlist_index].displaySongs();
+                cout<<"\n\n";
+                
+                // Show menu options
+                string lines[] = {
+                    "===== PLAYLIST OPERATIONS =====",
+                    " ",
+                    "1. Add Song to Playlist",
+                    "2. Remove Song from Playlist", 
+                    "3. Display All Songs",
+                    "4. Play a Song",
+                    "5. Get Total Duration",
+                    "6. Back to Main Menu"
+                };
+
+                for (const string &line : lines)
+                {
+                    int innerPadding = (boxWidth - 2 - static_cast<int>(line.length())) / 2;
+                    if (innerPadding < 0)
+                        innerPadding = 0;
+
+                    cout << string(leftPadding, ' ')
+                        << "|" << string(innerPadding, ' ') << line
+                        << string(boxWidth - 2 - innerPadding - line.length(), ' ') << "|" << endl;
+                }
+                
+                cout<<"\n\n";
+                int choice;
+                string s1="Enter desired choice: ";
+                print_in_centre(s1);
+                cin>>choice;
+                cin.ignore();
+                
+                switch(choice)
+                {
+                    case 1:
+                        add_song_to_specific_playlist(playlist_index);
+                        break;
+                    case 2:
+                        remove_song_from_specific_playlist(playlist_index);
+                        break;
+                    case 3:
+                        system("cls");
+                        MyPlaylists[playlist_index].displaySongs();
+                        cout<<"\n\nPress any key to continue...";
+                        getch();
+                        break;
+                    case 4:
+                        play_song_from_specific_playlist(playlist_index);
+                        break;
+                    case 5:
+                        system("cls");
+                        cout<<"\n\nTotal Duration: " << MyPlaylists[playlist_index].totalduration() << " seconds\n\n";
+                        cout<<"Press any key to continue...";
+                        getch();
+                        break;
+                    case 6:
+                        return;
+                    default:
+                        cout<<"Invalid Choice!";
+                        getch();
+                        break;
+                }
+            }
+        }
+
+        void add_song_to_specific_playlist(int playlist_index)
+        {
+            system("cls");
+            cout<<"\n\n";
+            string title = "Adding Song to: " + MyPlaylists[playlist_index].PLname();
+            print_in_centre(title);
+            cout<<"\n\n";
+            
+            // Create a new Song - this will automatically ask for input via setInfo()
+            Song newSong;
+            
+            // Check for duplicate
+            int check=0;
+            for(const auto& s : MyPlaylists[playlist_index].want_playlist_songs()) {
+                if(newSong.getTitle() == s.getTitle()) {
+                    check=1;
+                    break;
+                }
+            }
+            if(check==1) {
+                cout<<"\n\n";
+                string s3="Song Already exists in playlist!";
+                print_in_centre(s3);
+            } else {
+                MyPlaylists[playlist_index].addSong(newSong);
+                cout<<"\n\n";
+                string s4="Song added to playlist successfully!";
+                print_in_centre(s4);
+            }
+            cout<<"\n\nPress any key to continue...";
+            getch();
+        }
+
+        void remove_song_from_specific_playlist(int playlist_index)
+        {
+            system("cls");
+            if(MyPlaylists[playlist_index].want_playlist_songs().empty()) {
+                print_in_centre("No songs in this playlist!");
+                cout<<"\n\nPress any key to continue...";
+                getch();
+                return;
+            }
+            
+            cout<<"\n\n";
+            string title = "Removing Song from: " + MyPlaylists[playlist_index].PLname();
+            print_in_centre(title);
+            cout<<"\n\n";
+            
+            MyPlaylists[playlist_index].displaySongs();
+            cout<<"\n\n";
+            string s2="Enter the title of the song to remove: ";
+            print_in_centre(s2);
+            string song_title;
+            getline(cin>>ws, song_title);
+            MyPlaylists[playlist_index].removeSong(song_title);
+            cout<<"\n\nPress any key to continue...";
+            getch();
+        }
+
+        void play_song_from_specific_playlist(int playlist_index)
+        {
+            system("cls");
+            if(MyPlaylists[playlist_index].want_playlist_songs().empty()) {
+                print_in_centre("No songs in this playlist!");
+                cout<<"\n\nPress any key to continue...";
+                getch();
+                return;
+            }
+            
+            cout<<"\n\n";
+            string title = "Playing Song from: " + MyPlaylists[playlist_index].PLname();
+            print_in_centre(title);
+            cout<<"\n\n";
+            
+            MyPlaylists[playlist_index].displaySongs();
+            cout<<"\n\n";
+            string s2="Enter the title of the song to play: ";
+            print_in_centre(s2);
+            string song_title;
+            getline(cin>>ws, song_title);
+            
+            // Find song
+            for(const auto& song : MyPlaylists[playlist_index].want_playlist_songs()) {
+                if(song.getTitle() == song_title) {
+                    // For now, just show song info (since interfacemusicplayer needs to be included)
+                    cout<<"\n\n";
+                    print_in_centre("Now Playing: " + song.getTitle());
+                    cout<<"\n";
+                    print_in_centre("Artist: " + song.getArtist());
+                    cout<<"\n";
+                    print_in_centre("Duration: " + to_string(song.getDuration()) + " seconds");
+                    cout<<"\n\nPress any key to continue...";
+                    getch();
+                    return;
+                }
+            }
+            print_in_centre("Song not found in playlist!");
+            cout<<"\n\nPress any key to continue...";
+            getch();
         }
         
         void just_display_playlists()
