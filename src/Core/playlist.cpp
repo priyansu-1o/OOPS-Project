@@ -56,3 +56,7 @@ string Playlist::PLname()
 {
     return playlistName;
 }
+vector<Song> Playlist::want_playlist_songs()
+{
+    return songs;
+}

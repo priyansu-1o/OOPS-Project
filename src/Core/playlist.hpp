@@ -11,6 +11,7 @@ class Playlist{
     Playlist(string name);
     void changename(string n);
     string PLname();
+    vector<Song> want_playlist_songs();
     void addSong(const Song &song);
     void removeSong(const string &songTitle);
     int totalduration();
