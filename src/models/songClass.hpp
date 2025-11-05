@@ -26,6 +26,7 @@ public:
     string getTitle() const { return title; }
     string getArtist() const { return artist; }
     string getGenre() const { return genre; }
+    string getfilepath()const{return filepath;}
     int getDuration() const { return duration; }
 
     // Setters

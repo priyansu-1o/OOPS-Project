@@ -5,6 +5,7 @@
 #include "models\songClass.hpp"
 #include "Core\playlist.hpp"
 #include "Core\library.hpp"
+#include "mediaplayer.hpp"
 #include<conio.h>
 
 vector<Playlist> MyPlaylists;
@@ -192,43 +193,11 @@ class window3
         void play_song_from_specific_playlist(int playlist_index)
         {
             system("cls");
-            if(MyPlaylists[playlist_index].want_playlist_songs().empty()) {
-                print_in_centre("No songs in this playlist!");
-                cout<<"\n\nPress any key to continue...";
-                getch();
-                return;
-            }
+            int i=MyPlaylists[playlist_index].displaySongs();
+            vector<Song> v=MyPlaylists[playlist_index].want_playlist_songs();
+            Song s=v[i];
+            interfacemusicplayer p(s);
             
-            cout<<"\n\n";
-            string title = "Playing Song from: " + MyPlaylists[playlist_index].PLname();
-            print_in_centre(title);
-            cout<<"\n\n";
-            
-            MyPlaylists[playlist_index].displaySongs();
-            cout<<"\n\n";
-            string s2="Enter the title of the song to play: ";
-            print_in_centre(s2);
-            string song_title;
-            getline(cin>>ws, song_title);
-            
-            // Find song
-            for(const auto& song : MyPlaylists[playlist_index].want_playlist_songs()) {
-                if(song.getTitle() == song_title) {
-                    // For now, just show song info (since interfacemusicplayer needs to be included)
-                    cout<<"\n\n";
-                    print_in_centre("Now Playing: " + song.getTitle());
-                    cout<<"\n";
-                    print_in_centre("Artist: " + song.getArtist());
-                    cout<<"\n";
-                    print_in_centre("Duration: " + to_string(song.getDuration()) + " seconds");
-                    cout<<"\n\nPress any key to continue...";
-                    getch();
-                    return;
-                }
-            }
-            print_in_centre("Song not found in playlist!");
-            cout<<"\n\nPress any key to continue...";
-            getch();
         }
         
         void just_display_playlists()
