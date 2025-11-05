@@ -47,5 +47,7 @@ istream& operator>>(istream &is, Song &s) {
     getline(is >> ws, s.genre);
     cout << "Enter duration (in seconds): ";
     is >> s.duration;
+    cout << "Enter file path: ";
+    getline(is >> ws, s.filepath);
     return is;
 }

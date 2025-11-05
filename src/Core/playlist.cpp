@@ -1,3 +1,4 @@
+#include<conio.h>
 #include "playlist.hpp"
 #include "../models/songClass.hpp"
 using namespace std;
@@ -6,15 +7,8 @@ Playlist::Playlist(string name):playlistName(name){}
 void Playlist::addSong(const Song &song){
     songs.push_back(song);
 }
-void Playlist::removeSong(const string &songTitle){
-    auto it = remove_if(songs.begin(), songs.end(), [&](const Song &s) {
-        return s.getTitle() == songTitle;
-    });
-    if (it != songs.end()) {
-        songs.erase(it, songs.end());
-    } else {
-        cout << "Song with title \"" << songTitle << "\" not found in the playlist.\n";
-    }
+void Playlist::removeSong(int i){
+    songs.erase(songs.begin()+i);
 }
 int Playlist::totalduration(){
     int totalSec=0;
@@ -23,21 +17,72 @@ int Playlist::totalduration(){
     }
     return totalSec;
 }
-void Playlist::displaySongs() {
-    std::cout << "\n🎵 Playlist: " << playlistName << "\n";
-    std::cout << "-------------------------\n";
+// Required headers: <iostream>, <vector>, <string>, <conio.h>, <stdlib.h>
+
+int Playlist::displaySongs() {
     if (songs.empty()) {
+        system("cls");
+        std::cout << "\n🎵 Playlist: " << playlistName << "\n";
+        std::cout << "-------------------------\n";
         std::cout << "No songs available.\n";
-        return;
-    }
-    for (const auto &song : songs) {
-        std::cout << song << "\n"; // Uses Song's operator<<
+        std::cout << "-------------------------\n";
+        std::cout << "Press any key to return...\n";
+        _getch();
+        return -1; // Return -1 as no song can be selected
     }
 
-    int total=totalduration();
-    std::cout << "-------------------------\n";
-    std::cout << "Total Duration: " << total <<"s\n";
+    int currentIndex = 0;
+    char input;
+
+    while (true) {
+        system("cls"); // Clears the console screen
+
+        std::cout << "\n🎵 Playlist: " << playlistName << "\n";
+        std::cout << "-----------------------------------------------------\n";
+
+        // Iterate through the songs and display them
+        for (size_t i = 0; i < songs.size(); ++i) {
+            if (i == currentIndex) {
+                std::cout << "-> "; // Selector for the highlighted song
+            } else {
+                std::cout << "   ";
+            }
+            std::cout << songs[i] << "\n"; // Assumes Song has an operator<< overload
+        }
+
+        std::cout << "-----------------------------------------------------\n";
+        int total = totalduration();
+        std::cout << "Total Duration: " << total << "s\n";
+        std::cout << "Use 'w'/'s' to navigate, 'Enter' to select, 'q' to back.\n";
+
+        input = _getch(); // Get a single character without waiting for Enter
+
+        switch (input) {
+            case 'w':
+            case 'W':
+                if (currentIndex > 0) {
+                    currentIndex--;
+                } else {
+                    currentIndex = songs.size() - 1; // Wrap to the bottom
+                }
+                break;
+            case 's':
+            case 'S':
+                if (currentIndex < songs.size() - 1) {
+                    currentIndex++;
+                } else {
+                    currentIndex = 0; // Wrap to the top
+                }
+                break;
+            case '\r': // The Enter key
+                return currentIndex; // Return the index of the selected song
+            case 'q':
+            case 'Q':
+                return -1; // Return -1 to indicate user backed out
+        }
+    }
 }
+
 Playlist Playlist::operator+(const Playlist &other) const{
    Playlist merged("Merged: " + playlistName + " + " + other.playlistName);
     merged.songs = songs; // copy current songs

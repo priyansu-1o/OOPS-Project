@@ -71,10 +71,7 @@ class window3
                 print_in_centre(title);
                 cout<<"\n\n";
                 
-                // Display current playlist info
-                MyPlaylists[playlist_index].displaySongs();
-                cout<<"\n\n";
-                
+               
                 // Show menu options
                 string lines[] = {
                     "===== PLAYLIST OPERATIONS =====",
@@ -186,13 +183,8 @@ class window3
             print_in_centre(title);
             cout<<"\n\n";
             
-            MyPlaylists[playlist_index].displaySongs();
-            cout<<"\n\n";
-            string s2="Enter the title of the song to remove: ";
-            print_in_centre(s2);
-            string song_title;
-            getline(cin>>ws, song_title);
-            MyPlaylists[playlist_index].removeSong(song_title);
+            int dltindex=MyPlaylists[playlist_index].displaySongs();
+            MyPlaylists[playlist_index].removeSong(dltindex);
             cout<<"\n\nPress any key to continue...";
             getch();
         }
@@ -485,7 +477,7 @@ class window3
                 }
                 else if(c=='o' || c=='O')
                 {
-                        
+                     manage_single_playlist(i);   
                 }
                 else if(c=='d' || c=='D')
                 {
