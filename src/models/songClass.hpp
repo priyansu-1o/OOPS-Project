@@ -20,6 +20,7 @@ public:
     // Constructors
     Song();
     Song(const string &t, const string &a, const string &g, int d);
+    Song(int x);  // Constructor that prompts for input (x is just a flag)
     
     // Getters
     void displayInfo();

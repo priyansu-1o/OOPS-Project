@@ -9,12 +9,23 @@ using namespace std;
 
 // Song class implementations
 Song::Song() {
-    setInfo();
+    title = "";
+    artist = "";
+    genre = "";
+    filepath = "";
+    id = "";
+    duration = 0;
 }
 
 Song::Song(const string &t, const string &a, const string &g, int d) 
     : title(t), artist(a), genre(g), duration(d) {
     // Don't call setInfo() for this constructor
+    filepath = "";
+    id = "";
+}
+
+Song::Song(int x) {
+    setInfo();
 }
 
 void Song::displayInfo() {
