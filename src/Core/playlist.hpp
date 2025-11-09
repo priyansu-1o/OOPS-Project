@@ -13,9 +13,9 @@ class Playlist{
     string PLname();
     vector<Song> want_playlist_songs();
     void addSong(const Song &song);
-    void removeSong(const string &songTitle);
+    void removeSong(int i);
     int totalduration();
-    void displaySongs();
+    int displaySongs();
     Playlist operator+(const Playlist &other) const;
     friend ostream& operator<<(ostream &os,const Playlist &pl);
 };

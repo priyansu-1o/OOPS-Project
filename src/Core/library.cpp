@@ -19,23 +19,8 @@ bool MusicLibrary::addSong(const Song& song) {
     return true;
 }
 
-bool MusicLibrary :: removeSong(const string& songTitle){
-    auto it = find_if(allSongs.begin(), allSongs.end(),
-        [&songTitle](const Song& song) {
-            return song.getTitle() == songTitle;
-        });
-
-    if(it != allSongs.end()){
-        allSongs.erase(it);
-        for (auto& playlist : playlists) {
-            playlist.removeSong(songTitle);
-        }
-        refreshIndexes();
-        updateStatistics();
-        return true;
-    }
-    cout << "Song '" << songTitle << "' not found for removal!" << endl;
-    return false;
+void MusicLibrary :: removeSong(int i){
+            allSongs.erase(allSongs.begin()+i);
 }
 
 Song* MusicLibrary::findSong(const string &title) {

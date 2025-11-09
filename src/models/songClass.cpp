@@ -12,6 +12,11 @@ Song::Song() {
     setInfo();
 }
 
+Song::Song(const string &t, const string &a, const string &g, int d) 
+    : title(t), artist(a), genre(g), duration(d) {
+    // Don't call setInfo() for this constructor
+}
+
 void Song::displayInfo() {
     cout << *this << endl;
 }
@@ -44,6 +49,8 @@ istream& operator>>(istream &is, Song &s) {
     getline(is >> ws, s.genre);
     cout << "Enter duration (in seconds): ";
     is >> s.duration;
+    cout << "Enter file path: ";
+    getline(is >> ws, s.filepath);
     return is;
 }
 

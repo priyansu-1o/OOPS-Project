@@ -25,7 +25,7 @@ public:
     MusicLibrary();
 
     bool addSong(const Song& song);
-    bool removeSong(const string& songTitle);
+    void removeSong(int i);
     Song* findSong(const string& title);
     vector<Song*> findSongsByArtist(const string& artist);
     vector<Song*> findSongsByGenre(const string& genre);

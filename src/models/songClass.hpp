@@ -17,14 +17,17 @@ protected:
     int duration;
 
 public:
-    // Constructor
+    // Constructors
     Song();
+    Song(const string &t, const string &a, const string &g, int d);
+    
     // Getters
     void displayInfo();
     string getId() const { return id; }
     string getTitle() const { return title; }
     string getArtist() const { return artist; }
     string getGenre() const { return genre; }
+    string getfilepath()const{return filepath;}
     int getDuration() const { return duration; }
 
     // Setters
