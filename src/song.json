@@ -1,0 +1,26 @@
+[
+    {
+        "artist": "skdjakjsd",
+        "duration": 9,
+        "filepath": "",
+        "genre": "sjdakjd",
+        "id": "",
+        "title": "hello world 1"
+    },
+    {
+        "artist": "ksjdkjs]",
+        "duration": 90,
+        "filepath": "",
+        "genre": "ksdjkjs",
+        "id": "",
+        "title": "hello world 2"
+    },
+    {
+        "artist": "kdjsaj",
+        "duration": 900,
+        "filepath": "",
+        "genre": "sdjksj",
+        "id": "",
+        "title": "hello world 3"
+    }
+]

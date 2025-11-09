@@ -1,10 +1,11 @@
 #ifndef SONGCLASS_HPP
 #define SONGCLASS_HPP
-
-#include <iostream>
+#include "json.hpp"
+#include <bits/stdc++.h>
 #include <string>
-
+using json = nlohmann::json;
 using namespace std;
+
 
 class Song {
 protected:
@@ -18,7 +19,6 @@ protected:
 public:
     // Constructor
     Song();
-    
     // Getters
     void displayInfo();
     string getId() const { return id; }
@@ -37,10 +37,21 @@ public:
     // Operator Overloading
     bool operator==(const Song &other) const;
     bool operator!=(const Song &other) const;
+
+    //JSON_config
+    friend bool jsonify(vector<Song>& libraryExample);
+    friend vector<Song> stringify();
     
     // Friend functions for stream operators
     friend ostream& operator<<(ostream &os, const Song &s);
     friend istream& operator>>(istream &is, Song &s);
+
+    friend void to_json(json& j, const Song& s);
+    friend void from_json(const json& j, Song& s);
 };
+
+// JSON utility functions
+bool jsonify(vector<Song>& libraryExample);
+vector<Song> stringify();
 
 #endif // SONGCLASS_HPP
