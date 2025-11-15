@@ -5,6 +5,7 @@
 #include <limits>
 #include <conio.h>
 #include "Core/library.hpp"
+#include "mediaplayer.hpp"
 #include "models/songClass.hpp"
 using namespace std;
 class developerwindow
@@ -90,7 +91,7 @@ public:
         }
         else
         {
-            string errorMsg = "Incorrect Password! TMKC Bhak!!";
+            string errorMsg = "Incorrect Password! Returning to Main Menu!";
             cout << endl
                  << string(leftPadding + (boxWidth - static_cast<int>(errorMsg.length())) / 2, ' ')
                  << errorMsg << endl;
@@ -108,7 +109,9 @@ public:
             printMenuBox();
             char choice;
             choice = getch();
-
+            string tt=""; 
+            Song s;
+            interfacemusicplayer* ptr2;
             switch (choice)
             {
             case '1':
@@ -117,7 +120,25 @@ public:
                 break;
             case '2':
                 system("cls");
-                cout << "Search Song feature coming soon...\n";
+                cout << "Enter song title to search: ";
+                cin >> ws; // flush whitespace
+                getline(cin, tt);
+                Song* ptr=ob2.findSong(tt);
+                if(ptr==nullptr)
+                    cout<<"Song not found\n";
+                else{
+                    cout<<"Song found\n";
+                    cout<<"Do you want to play the song? (y/n): ";
+                    char ch;    
+                    cin>>ch;
+                    if(ch=='y' || ch=='Y'){ 
+                        cout<<"Playing song: "<<endl;
+                        interfacemusicplayer p(*ptr);
+                    }
+                    else{
+                        cout<<"Returning to main menu.\n";
+                    }
+                }
                 break;
             case '3':
                 system("cls");
@@ -125,7 +146,8 @@ public:
                 break;
             case '4':
                 system("cls");
-                cout << "Play Song feature coming soon...\n";
+                s=ob2.displayAllSongs();
+                ptr2=new interfacemusicplayer(s);
                 break;
             case '5':
             {

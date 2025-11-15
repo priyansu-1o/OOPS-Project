@@ -57,7 +57,7 @@ vector<Song*> MusicLibrary :: searchSongs (const string& query){
     return results;
 }
 
-void MusicLibrary::displayAllSongs() const {
+Song  MusicLibrary::displayAllSongs() const {
     int selectedIndex = 0;
     const int pageSize = 15; // Number of songs to show per "page"
     int currentPage = 0;
@@ -240,6 +240,9 @@ void MusicLibrary::displayAllSongs() const {
             cout << "Press any key to continue...";
             getch();
             break;
+        }
+        else if(c=='\n'){
+            return allSongs[selectedIndex];
         }
         else if (c == 'q' || c == 'Q') { // Quit
             break;
