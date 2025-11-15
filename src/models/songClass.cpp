@@ -78,7 +78,12 @@ void to_json(json& j, const Song& s) {
 
 void from_json(const json& j, Song& s) {
     j.at("title").get_to(s.title);
-    j.at("artist").get_to(s.artist);
+    // Handle optional artist field (some JSON entries may not have it)
+    if (j.contains("artist")) {
+        j.at("artist").get_to(s.artist);
+    } else {
+        s.artist = "Unknown";
+    }
     j.at("genre").get_to(s.genre);
     j.at("filepath").get_to(s.filepath);
     j.at("id").get_to(s.id);

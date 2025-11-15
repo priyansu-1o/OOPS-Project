@@ -56,10 +56,6 @@ vector<Song*> MusicLibrary :: searchSongs (const string& query){
     }
     return results;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 598af247fb61e2e99b11059618dd3561eb2546ea
 int MusicLibrary::displayAllSongs() const {
     int selectedIndex = 0;
     const int pageSize = 15; // Number of songs to show per "page"
@@ -316,7 +312,21 @@ vector<Song>MusicLibrary::stringify(){
         input_file >> loaded_json;
         input_file.close();
         
-        auto loaded_songs = loaded_json.get<vector<Song>>();
+        vector<Song> loaded_songs;
+        
+        // Check if JSON is an array
+        if (loaded_json.is_array()) {
+            // Iterate through each JSON object in the array
+            for (const auto& song_json : loaded_json) {
+                Song song;
+                from_json(song_json, song);
+                loaded_songs.push_back(song);
+            }
+        } else {
+            cerr << "Error: JSON file does not contain an array" << endl;
+            return vector<Song>();
+        }
+        
         return loaded_songs;
     }
     catch (const exception& e) {
