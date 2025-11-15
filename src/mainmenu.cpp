@@ -117,6 +117,7 @@ public:
                 system("cls");
                 ob2.displayAllSongs();
                 break;
+            
             case '2':
                 system("cls");
                 cout << "Enter song title to search: ";
@@ -139,6 +140,7 @@ public:
                     }
                 }
                 break;
+                
             case '3':
                 system("cls");
                 cout << "Playlists feature coming soon...\n";
