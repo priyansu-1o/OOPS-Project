@@ -1,26 +1,74 @@
 [
     {
-        "artist": "skdjakjsd",
-        "duration": 9,
-        "filepath": "",
-        "genre": "sjdakjd",
+        "artist": "Lukas Graham",
+        "duration": 238,
+        "filepath": "C://Users//priya//OneDrive//Desktop//OOPS//OOPS-Project//src//lib//7 Years - Lukas Graham.mp3",
+        "genre": "Pop",
         "id": "",
-        "title": "hello world 1"
+        "title": "7 Years"
     },
     {
-        "artist": "ksjdkjs]",
-        "duration": 90,
-        "filepath": "",
-        "genre": "ksdjkjs",
+        "artist": "David Kushner",
+        "duration": 213,
+        "filepath": "C://Users//priya//OneDrive//Desktop//OOPS//OOPS-Project//src//lib//David Kushner - Daylight.mp3",
+        "genre": "Indie Pop",
         "id": "",
-        "title": "hello world 2"
+        "title": "Daylight"
     },
     {
-        "artist": "kdjsaj",
-        "duration": 900,
-        "filepath": "",
-        "genre": "sdjksj",
+        "artist": "Djo",
+        "duration": 178,
+        "filepath": "C://Users//priya//OneDrive//Desktop//OOPS//OOPS-Project//src//lib//End of Beginning - Djo.mp3",
+        "genre": "Indie Rock",
         "id": "",
-        "title": "hello world 3"
+        "title": "End of Beginning"
+    },
+    {
+        "artist": "Amit Trivedi",
+        "duration": 245,
+        "filepath": "C://Users//priya//OneDrive//Desktop//OOPS//OOPS-Project//src//lib//Iktara Wake Up Sid 128 Kbps.mp3",
+        "genre": "Bollywood",
+        "id": "",
+        "title": "Iktara"
+    },
+    {
+        "artist": "Unknown",
+        "duration": 240,
+        "filepath": "C://Users//priya//OneDrive//Desktop//OOPS//OOPS-Project//src//lib//Jhol.mp3",
+        "genre": "Folk",
+        "id": "",
+        "title": "Jhol"
+    },
+    {
+        "artist": "Arijit Singh",
+        "duration": 218,
+        "filepath": "C://Users//priya//OneDrive//Desktop//OOPS//OOPS-Project//src//lib//Kabira Yeh Jawaani Hai Deewani 128 Kbps.mp3",
+        "genre": "Bollywood",
+        "id": "",
+        "title": "Kabira"
+    },
+    {
+        "artist": "Shreya Ghoshal",
+        "duration": 285,
+        "filepath": "C://Users//priya//OneDrive//Desktop//OOPS//OOPS-Project//src//lib//O Rangrez Bhaag Milkha Bhaag 128 Kbps.mp3",
+        "genre": "Bollywood",
+        "id": "",
+        "title": "O Rangrez"
+    },
+    {
+        "artist": "One Direction",
+        "duration": 223,
+        "filepath": "C://Users//priya//OneDrive//Desktop//OOPS//OOPS-Project//src//lib//One Direction - Night Changes.mp3",
+        "genre": "Pop",
+        "id": "",
+        "title": "Night Changes"
+    },
+    {
+        "artist": "Ruth B.",
+        "duration": 203,
+        "filepath": "C://Users//priya//OneDrive//Desktop//OOPS//OOPS-Project//src//lib//Ruth B. - Dandelions (Lyrics).mp3",
+        "genre": "Pop",
+        "id": "",
+        "title": "Dandelions"
     }
 ]

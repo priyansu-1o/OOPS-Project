@@ -9,12 +9,23 @@ using namespace std;
 
 // Song class implementations
 Song::Song() {
-    setInfo();
+    title = "";
+    artist = "";
+    genre = "";
+    filepath = "";
+    id = "";
+    duration = 0;
 }
 
 Song::Song(const string &t, const string &a, const string &g, int d) 
     : title(t), artist(a), genre(g), duration(d) {
     // Don't call setInfo() for this constructor
+    filepath = "";
+    id = "";
+}
+
+Song::Song(int x) {
+    setInfo();
 }
 
 void Song::displayInfo() {
@@ -82,11 +93,11 @@ bool jsonify(vector<Song>& libraryExample){
         file << j.dump(4);
         file.close();
         
-        cout << "\n✅ Saved " << libraryExample.size() << " songs to song.json" << endl;
+        cout << "\nSaved " << libraryExample.size() << " songs to song.json" << endl;
         return true;
     }
     catch (const exception& e) {
-        cerr << "❌ Error: " << e.what() << endl;
+        cerr << "Error: " << e.what() << endl;
         return false;
     }
 }
@@ -94,7 +105,7 @@ bool jsonify(vector<Song>& libraryExample){
 vector<Song> stringify(){
     ifstream input_file("song.json");
     if (!input_file.is_open()) {
-        cerr << "❌ Cannot open song.json for reading" << endl;
+        cerr << "Cannot open song.json for reading" << endl;
         return vector<Song>();
     }
     
@@ -107,7 +118,7 @@ vector<Song> stringify(){
         return loaded_songs;
     }
     catch (const exception& e) {
-        cerr << "❌ Error parsing JSON: " << e.what() << endl;
+        cerr << "Error parsing JSON: " << e.what() << endl;
         input_file.close();
         return vector<Song>();
     }
