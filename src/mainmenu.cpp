@@ -20,8 +20,7 @@ public:
         case '1':
         {
             system("cls");
-            Song newSong;
-            newSong.setInfo();
+            Song newSong(1);
             if (lib.addSong(newSong))
                 cout << "Song added successfully!" << endl;
             else

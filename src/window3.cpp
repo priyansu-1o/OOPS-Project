@@ -22,11 +22,12 @@ int innerPadding=0;
 void print_in_centre(string str)
 {
     innerPadding = (boxWidth - 2 - static_cast<int>(str.length())) / 2;
+    
     if (innerPadding < 0)
     {
         innerPadding = 0;
     }
-                  
+
     cout << string(leftPadding, ' ') << string(innerPadding, ' ') << str;
 }
 
@@ -38,7 +39,7 @@ class window3
         void create_playlist()
         {
             system("cls");
-
+            cout<<"\n\n";
             string s1="Enter Name Of Playlist: ";
             string playlist_name;
             print_in_centre(s1);
@@ -56,10 +57,24 @@ class window3
             print_in_centre(s4);
             cout << MyPlaylists.size();
 
-            cout<<"\n\n";
-            
-            // Show playlist management menu for the newly created playlist
-            manage_single_playlist(MyPlaylists.size() - 1);
+            cout<<"\n\n\n";
+
+            char open_playlist;
+            string yahoo="Press [O] to open the newly created playlist: ";
+            print_in_centre(yahoo);
+            open_playlist=getch();
+
+            if(open_playlist=='o' || open_playlist=='O')
+            {
+                manage_single_playlist(MyPlaylists.size() - 1);
+            }
+            else
+            {
+                cout<<"\n\n\n";
+                string s4="-- press any key to continue --";
+                print_in_centre(s4);
+                getch();
+            }
         }
 
         void manage_single_playlist(int playlist_index)
@@ -70,9 +85,8 @@ class window3
                 cout<<"\n\n";
                 string title = "Managing Playlist: " + MyPlaylists[playlist_index].PLname();
                 print_in_centre(title);
-                cout<<"\n\n";
+                cout<<"\n\n\n";
                 
-               
                 // Show menu options
                 string lines[] = {
                     "===== PLAYLIST OPERATIONS =====",
@@ -97,36 +111,36 @@ class window3
                 }
                 
                 cout<<"\n\n";
-                int choice;
+                char choice;
                 string s1="Enter desired choice: ";
                 print_in_centre(s1);
-                cin>>choice;
-                cin.ignore();
+                choice=getch();
+                //cin.ignore();
                 
                 switch(choice)
                 {
-                    case 1:
+                    case '1':
                         add_song_to_specific_playlist(playlist_index);
                         break;
-                    case 2:
+                    case '2':
                         remove_song_from_specific_playlist(playlist_index);
                         break;
-                    case 3:
+                    case '3':
                         system("cls");
                         MyPlaylists[playlist_index].displaySongs();
                         cout<<"\n\nPress any key to continue...";
                         getch();
                         break;
-                    case 4:
+                    case '4':
                         play_song_from_specific_playlist(playlist_index);
                         break;
-                    case 5:
+                    case '5':
                         system("cls");
                         cout<<"\n\nTotal Duration: " << MyPlaylists[playlist_index].totalduration() << " seconds\n\n";
                         cout<<"Press any key to continue...";
                         getch();
                         break;
-                    case 6:
+                    case '6':
                         return;
                     default:
                         cout<<"Invalid Choice!";
@@ -145,7 +159,7 @@ class window3
             cout<<"\n\n";
             
             // Create a new Song - this will automatically ask for input via setInfo()
-            Song newSong;
+            Song newSong(1);
             
             // Check for duplicate
             int check=0;
@@ -184,10 +198,19 @@ class window3
             print_in_centre(title);
             cout<<"\n\n";
             
-            int dltindex=MyPlaylists[playlist_index].displaySongs();
-            MyPlaylists[playlist_index].removeSong(dltindex);
-            cout<<"\n\nPress any key to continue...";
-            getch();
+           while(true)
+           {
+                 int dltindex=MyPlaylists[playlist_index].displaySongs();
+                 MyPlaylists[playlist_index].removeSong(dltindex);
+                cout<<"Enter q/Q to quit"<<endl;
+                char d;
+                d=_getch();
+                if(d=='q'||d=='Q')
+                {
+                    break;
+                }
+           }
+        
         }
 
         void play_song_from_specific_playlist(int playlist_index)
@@ -209,20 +232,20 @@ class window3
             }
             else
             {
-                string s1="==Displayling All Playlists==";
+                string s1="== Displayling All Playlists ==";
                 print_in_centre(s1);
                 cout<<"\n\n";
                 
                 for(int i=0;i<MyPlaylists.size();i++)
                 {
-                    string s2=to_string(i)+". "+MyPlaylists[i].PLname()+", Total Songs = "+to_string((MyPlaylists[i].want_playlist_songs()).size());
+                    string s2=to_string(i+1)+". "+MyPlaylists[i].PLname()+", Total Songs = "+to_string((MyPlaylists[i].want_playlist_songs()).size());
                     print_in_centre(s2);
                     cout<<"\n";
                 }
             }
         }
 
-        /*void add_song_to_playlist()
+        void add_song_to_playlist()
         {
             system("cls");
 
@@ -233,79 +256,36 @@ class window3
 
             playlist_index=ret_dis_play_index();
 
-            system("cls");
+            add_song_to_specific_playlist(playlist_index);
+        }
 
-            //display_library();
-            cout<<"\n\n";
-            string s2="Which Song do you want to add to the playlist?: ";
-            int song_index;
-            print_in_centre(s2);
-            cin>>song_index;
-
-            int check=0;
-            for(int i=0;i<(((MyPlaylists[playlist_index]).want_playlist_songs()).size());i++)
-            {
-                if( (ml.getAllSongs()[song_index]).getTitle() == ( (MyPlaylists[playlist_index]).want_playlist_songs()[i] ).getTitle() )
-                {
-                    check=1;
-                    break;
-                }
-            }
-            if(check==1)
-            {
-                cout<<"\n\n";
-                string s3="Song Already exists in playlist!";
-                print_in_centre(s3);
-            }
-            else
-            {
-                MyPlaylists[playlist_index].addSong(library[song_index]);
-                cout<<"\n\n";
-                string s4="Song added to playlist!";
-                print_in_centre(s4);
-                //MyPlaylists[playlist_index].displaySongs();
-            }
-            cout<<"\n\n";
-
-            string s5="press any key to continue: ";
-            print_in_centre(s5);
-            getch();
-        }*/
-
-        /*void remove_song_from_playlist(int index)
+        void remove_song_from_playlist()
         {
             system("cls");
-
-            display_all_playlists();
-            cout<<"\n\n";
 
             string s1="Select the playlist you want to remove a song from: ";
             int playlist_index;
             print_in_centre(s1);
-            
-            playlist_index=ret_dis_play_index();
-
-            system("cls");
-
-            //MyPlaylists[playlist_index].displaySongs();
             cout<<"\n\n";
 
-            string s2="Which Song do you want to remove from the playlist?: ";
-            int song_index;
-            print_in_centre(s2);
-            cin>>song_index;
+            while(true)
+            {
+                playlist_index=ret_dis_play_index();
 
-            cout<<"\n\n";
+                remove_song_from_specific_playlist(playlist_index);
 
-            MyPlaylists[playlist_index].removeSong(library[song_index].getTitle());
-            string s3="Song removed from playlist!";
-            print_in_centre(s3);
-            cout<<"\n\n";
+                cout<<"\n\n";
+                string quit="press [Q] to quit: ";
+                print_in_centre(quit);
+                char quit_choice;
+                quit_choice=_getch();
 
-            string s4="press any key to continue: ";
-            print_in_centre(s4);
-            getch();
-        }*/
+                if(quit_choice=='q' || quit_choice=='Q')
+                {
+                    break;
+                }
+            }
+        }
         
         void find_playlist()
         {
@@ -317,6 +297,7 @@ class window3
             getline(cin>>ws,find_name);
             cout<<"\n\n";
 
+            int index=0,find=0;
             if(MyPlaylists.size()==0)
             {
                 string s10="There are no playlists!";
@@ -324,30 +305,55 @@ class window3
             }
             else
             {
-                int find=0;
                 for(int i=0;i<MyPlaylists.size();i++)
                 {
                     if(find_name==MyPlaylists[i].PLname())
                     {
-                        find=1;
-                        string s2="Playlist found at index = "+to_string(i);
-                        print_in_centre(s2);
+                        find=1,index=i;
                         break;
                     }
                 }
+
                 if(find==0)
                 {
                     string s3="--Playlist not found!--";
                     print_in_centre(s3);
-                }
-                cout<<"\n\n\n";
-                just_display_playlists();
-            }
-            cout<<"\n\n";
 
-            string s4="press any key to continue: ";
-            print_in_centre(s4);
-            getch();
+                    cout<<"\n\n\n";
+                    just_display_playlists();
+
+                    cout<<"\n\n\n";
+                    string s4="-- press any key to continue --";
+                    print_in_centre(s4);
+                    getch();
+                }
+                else
+                {
+                    string s3="Playlist found at position = "+to_string(index+1);
+                    print_in_centre(s3);
+
+                    cout<<"\n\n\n";
+                    just_display_playlists();
+
+                    cout<<"\n\n\n";
+
+                    char open_playlist;
+                    string yahoo="Press [O] to open the playlist: ";
+                    print_in_centre(yahoo);
+                    open_playlist=getch();
+
+                    if(open_playlist=='o' || open_playlist=='O')
+                    {
+                        manage_single_playlist(index);
+                    }
+                    else
+                    {
+                        string s4="-- press any key to continue --";
+                        print_in_centre(s4);
+                        getch();
+                    }
+                }
+            }
         }
         
         void display_all_playlists()
@@ -401,7 +407,7 @@ class window3
 
                 std::cout << horizontalBorder << "\n";
                 
-                string s1="==Displayling All Playlists==";
+                string s1="== Displayling All Playlists ==";
                 print_in_centre(s1);
                 cout<<"\n\n";
 
@@ -411,11 +417,11 @@ class window3
                     string s2="  "+a.PLname()+", Total Songs = "+to_string((a.want_playlist_songs()).size());
                     if(counter==i)
                     {
-                        cout<<"->"<<s2;
+                        cout<<"       ->"<<s2;
                     }
                     else
                     {
-                        cout<<"  "<<s2;
+                        cout<<"         "<<s2;
                     }
                     counter++;
                     cout<<endl;
@@ -479,11 +485,11 @@ class window3
                     string s2="  "+a.PLname()+", Total Songs = "+to_string((a.want_playlist_songs()).size());
                     if(counter==i)
                     {
-                        cout<<"->"<<s2;
+                        cout<<"       ->"<<s2;
                     }
                     else
                     {
-                        cout<<"  "<<s2;
+                        cout<<"         "<<s2;
                     }
                     counter++;
                     cout<<endl;
@@ -557,7 +563,8 @@ class window3
                 print_in_centre(s2);
                 cout<<"\n\n";
             }
-            string s3="Press any key to continue: ";
+
+            string s3="-- Press any key to continue --";
             print_in_centre(s3);
             getch();
         }
@@ -607,50 +614,50 @@ class window3
             {
                 system("cls");
                 print_window3_ui();
-
-                int choice;
+                cout<<"\n\n";
+                char choice;
                 string s1="Enter desired choice: ";
                 print_in_centre(s1);
-                cin>>choice;
+                choice=getch();
                 
                 switch(choice)
                 {
-                    case 1:
+                    case '1':
                     {
                         create_playlist();
                         break;
                     }
-                    case 2:
+                    case '2':
                     {
-                        //add_song_to_playlist();
+                        add_song_to_playlist();
                         break;
                     }
-                    case 3:
+                    case '3':
                     {
-                        //remove_song_from_playlist();
+                        remove_song_from_playlist();
                         break;
                     }
-                    case 4:
+                    case '4':
                     {
                         find_playlist();
                         break;
                     }
-                    case 5:
+                    case '5':
                     {
                         display_all_playlists();
                         break;
                     }
-                    case 6:
+                    case '6':
                     {
                         delete_playlist();
                         break;
                     }
-                    case 7:
+                    case '7':
                     {
                         merge_playlists();
                         break;
                     }
-                    case 8:
+                    case '8':
                     {
                         //mainmenu.cpp calling funtion
                         break;
@@ -661,11 +668,14 @@ class window3
                         break;
                     }
                 }
-                cout<<"\n";
-                string stri="enter E/e to exit || any other key for playlists_operations page: ";
+
+                cout<<"\n\n";
+
+                string stri="---   Exit [E] || Playlists Window [Any other key]   --- ";
                 char c;
                 print_in_centre(stri);
-                cin>>c;
+
+                c=getch();
                 if(c=='E'||c=='e')
                 {
                     break;
@@ -676,34 +686,37 @@ class window3
         void print_window3_ui()
         {
             for (int i = 0; i < topPadding; i++)
+            {
                 cout << endl;
+            }
 
             cout << string(leftPadding, ' ') << " " << string(boxWidth - 2, '_') << " " << endl;
 
             string lines[] = 
             {
-                "===== PLAYLISTS =====",
-                " ",
-                "1. Create A Playlist",
-                "2. Add Song To A Playlist",
-                "3. Remove Song From A playlist",
-                "4. Find Playlist",
-                "5. Display All Playlists",
-                "6. Delete Playlist",
-                "7. Merge Playlists",
-                "8. Go Back To Main Menu",
+                    "===== PLAYLISTS =====",
+                    " ",
+                    "1. Create A Playlist",
+                    "2. Add Song To A Playlist",
+                    "3. Remove Song From A playlist",
+                    "4. Find Playlist",
+                    "5. Display All Playlists",
+                    "6. Delete Playlist",
+                    "7. Merge Playlists",
+                    "8. Go Back To Main Menu",
             };
 
             for (const string &line : lines)
             {
                 int innerPadding = (boxWidth - 2 - static_cast<int>(line.length())) / 2;
                 if (innerPadding < 0)
-                    innerPadding = 0;
+                innerPadding = 0;
 
                 cout << string(leftPadding, ' ')
-                    << "|" << string(innerPadding, ' ') << line
-                    << string(boxWidth - 2 - innerPadding - line.length(), ' ') << "|" << endl;
+                << "|" << string(innerPadding, ' ') << line
+                << string(boxWidth - 2 - innerPadding - line.length(), ' ') << "|" << endl;
             }
+
             cout << string(leftPadding, ' ') << "|" << string(boxWidth - 2, '_') << "|" << endl;
         }
 };
@@ -711,6 +724,7 @@ class window3
 int main()
 {
     window3 test;
+
     test.w3();
 
     return 0;

@@ -301,6 +301,45 @@ void MusicLibrary::updateStatistics() {
     }
 }
 
+vector<Song> stringify(){
+    ifstream input_file("song.json");
+    if (!input_file.is_open()) {
+        cerr << "Cannot open song.json for reading" << endl;
+        return vector<Song>();
+    }
+    
+    try {
+        json loaded_json;
+        input_file >> loaded_json;
+        input_file.close();
+        
+        auto loaded_songs = loaded_json.get<vector<Song>>();
+        return loaded_songs;
+    }
+    catch (const exception& e) {
+        cerr << "Error parsing JSON: " << e.what() << endl;
+        input_file.close();
+        return vector<Song>();
+    }
+}
+
+bool jsonify(vector<Song>& libraryExample){
+    try {
+        json j = libraryExample;
+        
+        ofstream file("song.json");
+        file << j.dump(4);
+        file.close();
+        
+        cout << "\nSaved " << libraryExample.size() << " songs to song.json" << endl;
+        return true;
+    }
+    catch (const exception& e) {
+        cerr << "Error: " << e.what() << endl;
+        return false;
+    }
+}
+
 
 
 

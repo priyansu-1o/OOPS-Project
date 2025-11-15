@@ -54,8 +54,4 @@ public:
     friend void from_json(const json& j, Song& s);
 };
 
-// JSON utility functions
-bool jsonify(vector<Song>& libraryExample);
-vector<Song> stringify();
-
 #endif // SONGCLASS_HPP
