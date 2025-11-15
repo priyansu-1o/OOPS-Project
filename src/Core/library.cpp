@@ -56,7 +56,10 @@ vector<Song*> MusicLibrary :: searchSongs (const string& query){
     }
     return results;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 598af247fb61e2e99b11059618dd3561eb2546ea
 int MusicLibrary::displayAllSongs() const {
     int selectedIndex = 0;
     const int pageSize = 15; // Number of songs to show per "page"
@@ -250,7 +253,6 @@ int MusicLibrary::displayAllSongs() const {
     }
     return -1;
 }
-
 void MusicLibrary::displayStatistics() const {
     cout << "=== Library Statistics ===" << endl;
     cout << "Total Songs: " << totalSongs << endl;
@@ -302,7 +304,7 @@ void MusicLibrary::updateStatistics() {
     }
 }
 
-vector<Song> stringify(){
+vector<Song>MusicLibrary::stringify(){
     ifstream input_file("song.json");
     if (!input_file.is_open()) {
         cerr << "Cannot open song.json for reading" << endl;
@@ -324,7 +326,7 @@ vector<Song> stringify(){
     }
 }
 
-bool jsonify(vector<Song>& libraryExample){
+bool MusicLibrary::jsonify(vector<Song>& libraryExample){
     try {
         json j = libraryExample;
         
