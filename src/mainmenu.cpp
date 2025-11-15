@@ -104,6 +104,11 @@ public:
     void window1()
     {
         MusicLibrary ob2;
+        vector<Song> temp;
+        for(auto s:temp)
+        {
+            ob2.addSong(s);
+        }
         while (true)
         {
             printMenuBox();
