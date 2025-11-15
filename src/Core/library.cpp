@@ -56,8 +56,7 @@ vector<Song*> MusicLibrary :: searchSongs (const string& query){
     }
     return results;
 }
-
-Song  MusicLibrary::displayAllSongs() const {
+int MusicLibrary::displayAllSongs() const {
     int selectedIndex = 0;
     const int pageSize = 15; // Number of songs to show per "page"
     int currentPage = 0;
@@ -181,7 +180,7 @@ Song  MusicLibrary::displayAllSongs() const {
              << "+" << string(contentWidth - 2, '-') << "+" << endl;
         
         // Get user input
-        char c = getch();
+        char c = _getch();
         
         if (c == 'w' || c == 'W') { // Move up - WITH LOOPING
             if (selectedIndex > 0) {
@@ -242,14 +241,14 @@ Song  MusicLibrary::displayAllSongs() const {
             break;
         }
         else if(c=='\n'){
-            return allSongs[selectedIndex];
+            return selectedIndex;
         }
         else if (c == 'q' || c == 'Q') { // Quit
             break;
         }
     }
+    return -1;
 }
-
 void MusicLibrary::displayStatistics() const {
     cout << "=== Library Statistics ===" << endl;
     cout << "Total Songs: " << totalSongs << endl;
@@ -301,7 +300,7 @@ void MusicLibrary::updateStatistics() {
     }
 }
 
-vector<Song> stringify(){
+vector<Song>MusicLibrary::stringify(){
     ifstream input_file("song.json");
     if (!input_file.is_open()) {
         cerr << "Cannot open song.json for reading" << endl;
@@ -323,7 +322,7 @@ vector<Song> stringify(){
     }
 }
 
-bool jsonify(vector<Song>& libraryExample){
+bool MusicLibrary::jsonify(vector<Song>& libraryExample){
     try {
         json j = libraryExample;
         

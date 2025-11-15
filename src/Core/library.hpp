@@ -31,7 +31,7 @@ public:
     vector<Song*> findSongsByGenre(const string& genre);
     vector<Song*> searchSongs(const string& query);
     
-    Song displayAllSongs() const;
+    int displayAllSongs() const;
     void displayStatistics() const;
     vector<string> getAllArtists() const ;
     vector<string> getAllGenres() const;

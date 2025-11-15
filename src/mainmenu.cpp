@@ -103,8 +103,8 @@ public:
     void window1()
     {
         MusicLibrary ob2;
-        vector<Song> temp;
-        for(auto s:temp)
+        vector<Song> temp=ob2.stringify();
+        for (auto s : temp)
         {
             ob2.addSong(s);
         }
@@ -113,66 +113,74 @@ public:
             printMenuBox();
             char choice;
             choice = getch();
-            string tt=""; 
+            string tt = "";
             Song s;
-            interfacemusicplayer* ptr2;
+            interfacemusicplayer *ptr2;
             switch (choice)
             {
             case '1':
+            {
                 system("cls");
                 ob2.displayAllSongs();
                 break;
+            }
+
             case '2':
+            {
                 system("cls");
                 cout << "Enter song title to search: ";
-                cin >> ws; // flush whitespace
+                cin >> ws;
                 getline(cin, tt);
-                Song* ptr=ob2.findSong(tt);
-                if(ptr==nullptr)
-                    cout<<"Song not found\n";
-                else{
-                    cout<<"Song found\n";
-                    cout<<"Do you want to play the song? (y/n): ";
-                    char ch;    
-                    cin>>ch;
-                    if(ch=='y' || ch=='Y'){ 
-                        cout<<"Playing song: "<<endl;
-                        interfacemusicplayer p(*ptr);
-                    }
-                    else{
-                        cout<<"Returning to main menu.\n";
-                    }
+
+                Song *ptr = ob2.findSong(tt);
+
+                if (ptr == nullptr)
+                    cout << "Song not found\n";
+                else
+                {
+                    cout << "Song found\n";
+                    // ...
                 }
                 break;
+            }
+
             case '3':
+            {
                 system("cls");
                 cout << "Playlists feature coming soon...\n";
                 break;
+            }
+
             case '4':
+            {
                 system("cls");
-                s=ob2.displayAllSongs();
-                ptr2=new interfacemusicplayer(s);
+                Song s = ob2.displayAllSongs();
+                interfacemusicplayer *ptr2 = new interfacemusicplayer(s);
                 break;
+            }
+
             case '5':
             {
                 system("cls");
                 string pass;
-                cout << "==============================\n";
-                cout << "   Developer Access Required\n";
-                cout << "==============================\n\n";
                 cout << "Enter Password: ";
-                cin >> ws; // flush whitespace
                 getline(cin, pass);
                 developerwindow d;
                 d.devfunc(pass, ob2);
                 break;
             }
+
             case '6':
+            {
                 system("cls");
                 cout << "Exiting and saving...\n";
                 return;
+            }
+
             default:
+            {
                 cout << "\nINVALID CHOICE\n";
+            }
             }
 
             cout << "\nPress any key to return to the main menu...\n";
