@@ -448,7 +448,12 @@ void window3::display_all_playlists()
         }
         else if (c == 'd' || c == 'D')
         {
+            if( i == MyPlaylists.size() - 1)
+            {
+                i=0;
+            }
             delete_by_index(i);
+           
         }
         else if (c == 'e' || c == 'E')
             break;
@@ -715,7 +720,6 @@ void window3::print_window3_ui()
 // int main()
 // {
 //     window3 test;
-
 //     test.w3();
 
 //     return 0;
