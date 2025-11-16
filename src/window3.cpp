@@ -3,8 +3,8 @@
 #include <cstdlib> 
 #include <vector>
 #include "models\songClass.hpp"
-#include "Core\playlist.hpp"
-#include "Core\library.hpp"
+#include "playlist.hpp"
+#include "library.hpp"
 #include "mediaplayer.hpp"
 #include<conio.h>
 
@@ -721,11 +721,11 @@ class window3
         }
 };
 
-int main()
+/*int main()
 {
     window3 test;
 
     test.w3();
 
     return 0;
-}
+}*/
