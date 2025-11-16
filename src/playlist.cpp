@@ -22,7 +22,7 @@ int Playlist::totalduration(){
 int Playlist::displaySongs() {
     if (songs.empty()) {
         system("cls");
-        std::cout << "\n🎵 Playlist: " << playlistName << "\n";
+        std::cout << "\n# Playlist: " << playlistName << "\n";
         std::cout << "-------------------------\n";
         std::cout << "No songs available.\n";
         std::cout << "-------------------------\n";
@@ -37,7 +37,7 @@ int Playlist::displaySongs() {
     while (true) {
         system("cls"); // Clears the console screen
 
-        std::cout << "\n🎵 Playlist: " << playlistName << "\n";
+        std::cout << "\n# Playlist: " << playlistName << "\n";
         std::cout << "-----------------------------------------------------\n";
 
         // Iterate through the songs and display them
