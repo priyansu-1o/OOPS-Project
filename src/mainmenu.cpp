@@ -4,7 +4,8 @@
 #include <cstdlib>
 #include <limits>
 #include <conio.h>
-#include "Core/library.hpp"
+#include "playlist.hpp"
+#include "library.hpp"
 #include "mediaplayer.hpp"
 #include "models/songClass.hpp"
 using namespace std;
@@ -121,7 +122,9 @@ public:
             case '1':
             {
                 system("cls");
-                ob2.displayAllSongs();
+                 int x = ob2.displayAllSongs();
+                 Song s= ob2.getAllSongs()[x];
+                interfacemusicplayer *ptr2 = new interfacemusicplayer(s);
                 break;
             }
             case '2':
@@ -141,7 +144,8 @@ public:
                     // ...
                 }
                 break;
-            }   
+            }
+
             case '3':
             {
                 system("cls");
@@ -152,7 +156,8 @@ public:
             case '4':
             {
                 system("cls");
-                Song s = ob2.displayAllSongs();
+                 int x = ob2.displayAllSongs();
+                 Song s= ob2.getAllSongs()[x];
                 interfacemusicplayer *ptr2 = new interfacemusicplayer(s);
                 break;
             }

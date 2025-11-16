@@ -9,8 +9,8 @@
 #include <chrono>
 #include <mmsystem.h>
 #include "models\songClass.hpp"
-#include "Core\playlist.hpp"
-#include "Core\library.hpp"
+#include "playlist.hpp"
+#include "library.hpp"
 
 // Forward declaration for utility functions if needed
 void moveCursorToHome();
