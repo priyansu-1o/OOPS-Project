@@ -123,12 +123,7 @@ public:
                 system("cls");
                 ob2.displayAllSongs();
                 break;
-<<<<<<< HEAD
-            
-=======
             }
-
->>>>>>> 598af247fb61e2e99b11059618dd3561eb2546ea
             case '2':
             {
                 system("cls");
@@ -146,12 +141,7 @@ public:
                     // ...
                 }
                 break;
-<<<<<<< HEAD
-                
-=======
-            }
-
->>>>>>> 598af247fb61e2e99b11059618dd3561eb2546ea
+            }   
             case '3':
             {
                 system("cls");
