@@ -21,7 +21,7 @@ private:
     // Statistics
     int totalSongs;
     int totalDuration;
-
+    friend class window3;
 public:
     MusicLibrary();
 

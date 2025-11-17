@@ -9,10 +9,8 @@
 #include<conio.h>
 #include "window3.hpp"
 
-std::vector<Playlist> MyPlaylists;
-
-const int totalCols = 150;
-const int boxWidth = 60;
+ int totalCols = 150;
+ int boxWidth = 60;
 
 int leftPadding = (totalCols - boxWidth) / 2;
 int totalRows = 40;
@@ -30,7 +28,7 @@ void print_in_centre(std::string str)
     std::cout << std::string(leftPadding, ' ') << std::string(innerPadding, ' ') << str;
 }
 
-void window3::create_playlist()
+void window3::create_playlist(MusicLibrary& lib)
 {
     system("cls");
     std::cout << "\n\n";
@@ -40,7 +38,7 @@ void window3::create_playlist()
     getline(std::cin >> std::ws, playlist_name);
 
     Playlist p1(playlist_name);
-    MyPlaylists.push_back(p1);
+    lib.playlists.push_back(p1);
     std::cout << "\n\n";
 
     std::string s3 = "Playlist Succesfully Created! ";
@@ -49,7 +47,7 @@ void window3::create_playlist()
     std::cout << "\n";
     std::string s4 = "Total Playlists: ";
     print_in_centre(s4);
-    std::cout << MyPlaylists.size();
+    std::cout << lib.playlists.size();
 
     std::cout << "\n\n\n";
 
@@ -60,7 +58,7 @@ void window3::create_playlist()
 
     if (open_playlist == 'o' || open_playlist == 'O')
     {
-        manage_single_playlist(MyPlaylists.size() - 1);
+        manage_single_playlist(lib.playlists.size() - 1,lib);
     }
     else
     {
@@ -71,13 +69,13 @@ void window3::create_playlist()
     }
 }
 
-void window3::manage_single_playlist(int playlist_index)
+void window3::manage_single_playlist(int playlist_index, MusicLibrary& lib)
 {
     while (true)
     {
         system("cls");
         std::cout << "\n\n";
-        std::string title = "Managing Playlist: " + MyPlaylists[playlist_index].PLname();
+        std::string title = "Managing Playlist: " + lib.playlists[playlist_index].PLname();
         print_in_centre(title);
         std::cout << "\n\n\n";
 
@@ -111,23 +109,23 @@ void window3::manage_single_playlist(int playlist_index)
         switch (choice)
         {
         case '1':
-            add_song_to_specific_playlist(playlist_index);
+            add_song_to_specific_playlist(playlist_index, lib);
             break;
         case '2':
-            remove_song_from_specific_playlist(playlist_index);
+            remove_song_from_specific_playlist(playlist_index, lib);
             break;
         case '3':
             system("cls");
-            MyPlaylists[playlist_index].displaySongs();
+            lib.playlists[playlist_index].displaySongs();
             std::cout << "\n\nPress any key to continue...";
             getch();
             break;
         case '4':
-            play_song_from_specific_playlist(playlist_index);
+            play_song_from_specific_playlist(playlist_index, lib);
             break;
         case '5':
             system("cls");
-            std::cout << "\n\nTotal Duration: " << MyPlaylists[playlist_index].totalduration() << " seconds\n\n";
+            std::cout << "\n\nTotal Duration: " << lib.playlists[playlist_index].totalduration() << " seconds\n\n";
             std::cout << "Press any key to continue...";
             getch();
             break;
@@ -141,20 +139,26 @@ void window3::manage_single_playlist(int playlist_index)
     }
 }
 
-void window3::add_song_to_specific_playlist(int playlist_index)
+void window3::add_song_to_specific_playlist(int playlist_index,  MusicLibrary& lib)
 {
     system("cls");
     std::cout << "\n\n";
-    std::string title = "Adding Song to: " + MyPlaylists[playlist_index].PLname();
+    std::string title = "Adding Song to: " + lib.playlists[playlist_index].PLname();
     print_in_centre(title);
     std::cout << "\n\n";
 
-    Song newSong(1);
+    string add = "Select The song you want to add to the playlist: ";
+    print_in_centre(add);
+    cout<<"\n\n";
+    int k = lib.displayAllSongs();
+    if(k==-1)
+    return;
+    Song new_song = lib.getAllSongs()[k]; 
 
     int check = 0;
-    for (const auto &s : MyPlaylists[playlist_index].want_playlist_songs())
+    for (const auto &s : lib.playlists[playlist_index].want_playlist_songs())
     {
-        if (newSong.getTitle() == s.getTitle())
+        if (new_song.getTitle() == s.getTitle())
         {
             check = 1;
             break;
@@ -168,7 +172,7 @@ void window3::add_song_to_specific_playlist(int playlist_index)
     }
     else
     {
-        MyPlaylists[playlist_index].addSong(newSong);
+        lib.playlists[playlist_index].addSong(new_song);
         std::cout << "\n\n";
         std::string s4 = "Song added to playlist successfully!";
         print_in_centre(s4);
@@ -177,10 +181,10 @@ void window3::add_song_to_specific_playlist(int playlist_index)
     getch();
 }
 
-void window3::remove_song_from_specific_playlist(int playlist_index)
+void window3::remove_song_from_specific_playlist(int playlist_index,  MusicLibrary& lib)
 {
     system("cls");
-    if (MyPlaylists[playlist_index].want_playlist_songs().empty())
+    if (lib.playlists[playlist_index].want_playlist_songs().empty())
     {
         print_in_centre("No songs in this playlist!");
         std::cout << "\n\nPress any key to continue...";
@@ -189,33 +193,33 @@ void window3::remove_song_from_specific_playlist(int playlist_index)
     }
 
     std::cout << "\n\n";
-    std::string title = "Removing Song from: " + MyPlaylists[playlist_index].PLname();
+    std::string title = "Removing Song from: " + lib.playlists[playlist_index].PLname();
     print_in_centre(title);
     std::cout << "\n\n";
 
     while (true)
     {
-        int dltindex = MyPlaylists[playlist_index].displaySongs();
+        int dltindex = lib.playlists[playlist_index].displaySongs();
         if (dltindex == -1)
         {
             break;
         }
-        MyPlaylists[playlist_index].removeSong(dltindex);
+        lib.playlists[playlist_index].removeSong(dltindex);
     }
 }
 
-void window3::play_song_from_specific_playlist(int playlist_index)
+void window3::play_song_from_specific_playlist(int playlist_index,MusicLibrary& lib)
 {
     system("cls");
-    int i = MyPlaylists[playlist_index].displaySongs();
-    std::vector<Song> v = MyPlaylists[playlist_index].want_playlist_songs();
+    int i = lib.playlists[playlist_index].displaySongs();
+    std::vector<Song> v = lib.playlists[playlist_index].want_playlist_songs();
     Song s = v[i];
     interfacemusicplayer p(s);
 }
 
-void window3::just_display_playlists()
+void window3::just_display_playlists(MusicLibrary& lib)
 {
-    if (MyPlaylists.size() == 0)
+    if  (lib.playlists.size() == 0)
     {
         std::string str = "There are no playlists!";
         print_in_centre(str);
@@ -226,16 +230,16 @@ void window3::just_display_playlists()
         print_in_centre(s1);
         std::cout << "\n\n";
 
-        for (int i = 0; i < MyPlaylists.size(); i++)
+        for (int i = 0; i < lib.playlists.size(); i++)
         {
-            std::string s2 = std::to_string(i + 1) + ". " + MyPlaylists[i].PLname() + ", Total Songs = " + std::to_string((MyPlaylists[i].want_playlist_songs()).size());
+            std::string s2 = std::to_string(i + 1) + ". " + lib.playlists[i].PLname() + ", Total Songs = " + std::to_string( lib.playlists[i].want_playlist_songs().size());
             print_in_centre(s2);
             std::cout << "\n";
         }
     }
 }
 
-void window3::add_song_to_playlist()
+void window3::add_song_to_playlist( MusicLibrary& lib)
 {
     system("cls");
 
@@ -244,12 +248,12 @@ void window3::add_song_to_playlist()
     print_in_centre(s1);
     std::cout << "\n\n";
 
-    playlist_index = ret_dis_play_index();
+    playlist_index = ret_dis_play_index(lib);
 
-    add_song_to_specific_playlist(playlist_index);
+    add_song_to_specific_playlist(playlist_index, lib);
 }
 
-void window3::remove_song_from_playlist()
+void window3::remove_song_from_playlist(MusicLibrary& lib)
 {
     system("cls");
 
@@ -260,9 +264,9 @@ void window3::remove_song_from_playlist()
 
     while (true)
     {
-        playlist_index = ret_dis_play_index();
+        playlist_index = ret_dis_play_index(lib);
 
-        remove_song_from_specific_playlist(playlist_index);
+        remove_song_from_specific_playlist(playlist_index,lib);
 
         std::cout << "\n\n";
         std::string quit = "press [Q] to quit: ";
@@ -277,7 +281,7 @@ void window3::remove_song_from_playlist()
     }
 }
 
-void window3::find_playlist()
+void window3::find_playlist( MusicLibrary& lib)
 {
     system("cls");
 
@@ -288,16 +292,16 @@ void window3::find_playlist()
     std::cout << "\n\n";
 
     int index = 0, find = 0;
-    if (MyPlaylists.size() == 0)
+    if  (lib.playlists.size() == 0)
     {
         std::string s10 = "There are no playlists!";
         print_in_centre(s10);
     }
     else
     {
-        for (int i = 0; i < MyPlaylists.size(); i++)
+        for (int i = 0; i < lib.playlists.size(); i++)
         {
-            if (find_name == MyPlaylists[i].PLname())
+            if (find_name == lib.playlists[i].PLname())
             {
                 find = 1, index = i;
                 break;
@@ -310,7 +314,7 @@ void window3::find_playlist()
             print_in_centre(s3);
 
             std::cout << "\n\n\n";
-            just_display_playlists();
+            just_display_playlists(lib);
 
             std::cout << "\n\n\n";
             std::string s4 = "-- press any key to continue --";
@@ -323,7 +327,7 @@ void window3::find_playlist()
             print_in_centre(s3);
 
             std::cout << "\n\n\n";
-            just_display_playlists();
+            just_display_playlists(lib);
 
             std::cout << "\n\n\n";
 
@@ -334,7 +338,7 @@ void window3::find_playlist()
 
             if (open_playlist == 'o' || open_playlist == 'O')
             {
-                manage_single_playlist(index);
+                manage_single_playlist(index,lib);
             }
             else
             {
@@ -346,11 +350,11 @@ void window3::find_playlist()
     }
 }
 
-void window3::display_all_playlists()
+void window3::display_all_playlists( MusicLibrary& lib)
 {
     system("cls");
 
-    if (MyPlaylists.size() == 0)
+    if  (lib.playlists.size() == 0)
     {
         std::string s10 = "There are no playlists!";
         print_in_centre(s10);
@@ -404,7 +408,7 @@ void window3::display_all_playlists()
         std::cout << "\n\n";
 
         int counter = 0;
-        for (auto &a : MyPlaylists)
+        for (auto &a : lib.playlists)
         {
             std::string s2 = "  " + a.PLname() + ", Total Songs = " + std::to_string((a.want_playlist_songs()).size());
             if (counter == i)
@@ -433,7 +437,7 @@ void window3::display_all_playlists()
         }
         else if (c == 's')
         {
-            if (i == MyPlaylists.size() - 1)
+            if (i == lib.playlists.size() - 1)
             {
                 i = 0;
             }
@@ -444,11 +448,16 @@ void window3::display_all_playlists()
         }
         else if (c == 'o' || c == 'O')
         {
-            manage_single_playlist(i);
+            manage_single_playlist(i,lib);
         }
         else if (c == 'd' || c == 'D')
         {
-            delete_by_index(i);
+            if( i == lib.playlists.size() - 1)
+            {
+                i=0;
+            }
+            delete_by_index(i,lib);
+           
         }
         else if (c == 'e' || c == 'E')
             break;
@@ -460,11 +469,11 @@ void window3::display_all_playlists()
     getch();
 }
 
-int window3::ret_dis_play_index()
+int window3::ret_dis_play_index(MusicLibrary& lib)
 {
     std::cout << "\n\n";
 
-    if (MyPlaylists.size() == 0)
+    if  (lib.playlists.size() == 0)
     {
         return -1;
     }
@@ -472,7 +481,7 @@ int window3::ret_dis_play_index()
     while (true)
     {
         int counter = 0;
-        for (auto &a : MyPlaylists)
+        for (auto &a : lib.playlists)
         {
             std::string s2 = "  " + a.PLname() + ", Total Songs = " + std::to_string((a.want_playlist_songs()).size());
             if (counter == i)
@@ -501,7 +510,7 @@ int window3::ret_dis_play_index()
         }
         else if (c == 's')
         {
-            if (i == MyPlaylists.size() - 1)
+            if (i == lib.playlists.size() - 1)
             {
                 i = 0;
             }
@@ -522,19 +531,19 @@ int window3::ret_dis_play_index()
     return -1;
 }
 
-void window3::delete_by_index(int index)
+void window3::delete_by_index(int index,MusicLibrary& lib)
 {
-    MyPlaylists.erase(MyPlaylists.begin() + index);
+    lib.playlists.erase(lib.playlists.begin() + index);
     std::cout << "\n\n";
     std::string s2 = "Playlist successfully removed!";
     print_in_centre(s2);
 }
 
-void window3::delete_playlist()
+void window3::delete_playlist(MusicLibrary& lib)
 {
     system("cls");
 
-    if (MyPlaylists.size() == 0)
+    if  (lib.playlists.size() == 0)
     {
         std::string str = "There are no playlists!";
         print_in_centre(str);
@@ -546,9 +555,9 @@ void window3::delete_playlist()
         print_in_centre(s1);
         std::cout << "\n\n";
 
-        int rem_index = ret_dis_play_index();
+        int rem_index = ret_dis_play_index(lib);
 
-        MyPlaylists.erase(MyPlaylists.begin() + rem_index);
+        lib.playlists.erase(lib.playlists.begin() + rem_index);
         std::cout << "\n\n";
 
         std::string s2 = "Playlist successfully removed!";
@@ -561,7 +570,7 @@ void window3::delete_playlist()
     getch();
 }
 
-void window3::merge_playlists()
+void window3::merge_playlists(MusicLibrary& lib)
 {
     system("cls");
 
@@ -569,14 +578,14 @@ void window3::merge_playlists()
     int m1, m2;
     print_in_centre(s1);
     std::cout << "\n\n";
-    m1 = ret_dis_play_index();
+    m1 = ret_dis_play_index(lib);
 
     system("cls");
 
     std::string s2 = "Select 2nd playlist to be merged: ";
     print_in_centre(s2);
     std::cout << "\n\n";
-    m2 = ret_dis_play_index();
+    m2 = ret_dis_play_index(lib);
     std::cout << "\n\n\n";
 
     std::string s3 = "Enter Name Of merged Playlist: ";
@@ -585,9 +594,9 @@ void window3::merge_playlists()
     getline(std::cin >> std::ws, playlist_name);
 
     Playlist merged_playlist(playlist_name);
-    merged_playlist = MyPlaylists[m1] + MyPlaylists[m2];
+    merged_playlist = lib.playlists[m1] + lib.playlists[m2];
     merged_playlist.changename(playlist_name);
-    MyPlaylists.push_back(merged_playlist);
+    lib.playlists.push_back(merged_playlist);
 
     std::cout << "\n";
     std::string s4 = "--Merged Playlist successfully created!--";
@@ -599,7 +608,7 @@ void window3::merge_playlists()
     getch();
 }
 
-void window3::w3()
+void window3::w3( MusicLibrary& lib)
 {
     system("cls");
     while (true)
@@ -616,37 +625,37 @@ void window3::w3()
         {
         case '1':
         {
-            create_playlist();
+            create_playlist(lib);
             break;
         }
         case '2':
         {
-            add_song_to_playlist();
+            add_song_to_playlist(lib);
             break;
         }
         case '3':
         {
-            remove_song_from_playlist();
+            remove_song_from_playlist(lib);
             break;
         }
         case '4':
         {
-            find_playlist();
+            find_playlist(lib);
             break;
         }
         case '5':
         {
-            display_all_playlists();
+            display_all_playlists(lib);
             break;
         }
         case '6':
         {
-            delete_playlist();
+            delete_playlist(lib);
             break;
         }
         case '7':
         {
-            merge_playlists();
+            merge_playlists(lib);
             break;
         }
         case '8':
@@ -712,11 +721,11 @@ void window3::print_window3_ui()
     std::cout << std::string(leftPadding, ' ') << "|" << std::string(boxWidth - 2, '_') << "|" << std::endl;
 }
 
-// int main()
-// {
-//     window3 test;
+int main()
+{
+    window3 test;
+    MusicLibrary l;
+    test.w3(l);
 
-//     test.w3();
-
-//     return 0;
-// }
+    return 0;
+}
