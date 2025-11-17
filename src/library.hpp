@@ -8,7 +8,8 @@
 #include <string>
 using namespace std;
 
-class MusicLibrary {
+
+class MusicLibrary : public JsonHelper{
 private:
     vector<Song> allSongs;
     vector<Playlist> playlists;

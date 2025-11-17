@@ -54,4 +54,10 @@ public:
     friend void from_json(const json& j, Song& s);
 };
 
-#endif // SONGCLASS_HPP
+
+class JsonHelper{
+    vector<Song>stringify();
+    bool jsonify(vector<Song>& libraryExample);
+};
+
+#endif
