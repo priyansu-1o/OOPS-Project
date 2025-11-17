@@ -8,7 +8,8 @@
 #include <string>
 using namespace std;
 
-class MusicLibrary {
+
+class MusicLibrary : public JsonHelper{
 private:
     vector<Song> allSongs;
     vector<Playlist> playlists;
@@ -20,7 +21,7 @@ private:
     // Statistics
     int totalSongs;
     int totalDuration;
-
+    friend class window3;
 public:
     MusicLibrary();
 
@@ -39,10 +40,6 @@ public:
     vector<Song> getAllSongs() const {return allSongs;};
     int getTotalSongCount() const {return totalSongs;};
     int getTotalDuration() const {return totalDuration;};
-
-    // JSON utility functions
-bool jsonify(vector<Song>& libraryExample);
-vector<Song> stringify();
     
 private:
     void refreshIndexes();
