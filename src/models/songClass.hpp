@@ -56,6 +56,7 @@ public:
 
 
 class JsonHelper{
+    public : 
     vector<Song>stringify();
     bool jsonify(vector<Song>& libraryExample);
 };

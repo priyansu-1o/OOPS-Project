@@ -40,10 +40,6 @@ public:
     vector<Song> getAllSongs() const {return allSongs;};
     int getTotalSongCount() const {return totalSongs;};
     int getTotalDuration() const {return totalDuration;};
-
-    // JSON utility functions
-bool jsonify(vector<Song>& libraryExample);
-vector<Song> stringify();
     
 private:
     void refreshIndexes();
