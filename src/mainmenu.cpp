@@ -160,7 +160,7 @@ public:
             case '3':
             {
                 system("cls");
-                ob3.w3();
+                ob3.w3(ob2);
                 break;
             }
 
