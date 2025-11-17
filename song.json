@@ -1,15 +1,15 @@
 [
     {
         "artist": "Lukas Graham",
-        "duration": 238,
-        "filepath": "src/lib/7 Years - Lukas Graham.mp3",
+        "duration": 236,
+        "filepath": "src/lib/7 Years - Lukas Graham.wav",
         "genre": "Pop",
         "id": "",
         "title": "7 Years"
     },
     {
         "artist": "David Kushner",
-        "duration": 213,
+        "duration": 180,
         "filepath": "src/lib/David Kushner - Daylight.mp3",
         "genre": "Indie Pop",
         "id": "",
@@ -17,47 +17,47 @@
     },
     {
         "artist": "Djo",
-        "duration": 178,
-        "filepath": "src/lib/End of Beginning - Djo.mp3",
+        "duration": 160,
+        "filepath": "src/lib/End of Beginning - Djo.wav",
         "genre": "Indie Rock",
         "id": "",
         "title": "End of Beginning"
     },
     {
         "artist": "Amit Trivedi",
-        "duration": 245,
-        "filepath": "src/lib/Iktara Wake Up Sid 128 Kbps.mp3",
+        "duration": 253,
+        "filepath": "src/lib/Iktara Wake Up Sid 128 Kbps.wav",
         "genre": "Bollywood",
         "id": "",
         "title": "Iktara"
     },
     {
         "artist": "Unknown",
-        "duration": 240,
+        "duration": 265,
         "filepath": "src/lib/Jhol.mp3",
         "genre": "Folk",
         "id": "",
         "title": "Jhol"
-    },
+    },  
     {
         "artist": "Arijit Singh",
-        "duration": 218,
-        "filepath": "src/lib/Kabira Yeh Jawaani Hai Deewani 128 Kbps.mp3",
+        "duration": 223,
+        "filepath": "src/lib/Kabira Yeh Jawaani Hai Deewani 128 Kbps.wav",
         "genre": "Bollywood",
         "id": "",
         "title": "Kabira"
     },
     {
         "artist": "Shreya Ghoshal",
-        "duration": 285,
-        "filepath": "src/lib/O Rangrez Bhaag Milkha Bhaag 128 Kbps.mp3",
+        "duration": 385,
+        "filepath": "src/lib/O Rangrez Bhaag Milkha Bhaag 128 Kbps.wav",
         "genre": "Bollywood",
         "id": "",
         "title": "O Rangrez"
     },
     {
         "artist": "One Direction",
-        "duration": 223,
+        "duration": 240,
         "filepath": "src/lib/One Direction - Night Changes.mp3",
         "genre": "Pop",
         "id": "",
@@ -65,7 +65,7 @@
     },
     {
         "artist": "Ruth B.",
-        "duration": 203,
+        "duration": 228,
         "filepath": "src/lib/Ruth B. - Dandelions (Lyrics).mp3",
         "genre": "Pop",
         "id": "",
