@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include <string>
+#include<windows.h>
 #include <cstdlib> 
 #include <vector>
 #include "models\songClass.hpp"
@@ -212,6 +213,8 @@ void window3::play_song_from_specific_playlist(int playlist_index,MusicLibrary& 
 {
     system("cls");
     int i = lib.playlists[playlist_index].displaySongs();
+    if(i==-1)
+        return;
     std::vector<Song> v = lib.playlists[playlist_index].want_playlist_songs();
     Song s = v[i];
     interfacemusicplayer p(s);
@@ -256,28 +259,18 @@ void window3::add_song_to_playlist( MusicLibrary& lib)
 void window3::remove_song_from_playlist(MusicLibrary& lib)
 {
     system("cls");
-
-    std::string s1 = "Select the playlist you want to remove a song from: ";
+       std::string s1 = "Select the playlist you want to remove a song from: ";
     int playlist_index;
     print_in_centre(s1);
     std::cout << "\n\n";
 
     while (true)
     {
+      
         playlist_index = ret_dis_play_index(lib);
-
+        if(playlist_index==-1)
+            return;
         remove_song_from_specific_playlist(playlist_index,lib);
-
-        std::cout << "\n\n";
-        std::string quit = "press [Q] to quit: ";
-        print_in_centre(quit);
-        char quit_choice;
-        quit_choice = _getch();
-
-        if (quit_choice == 'q' || quit_choice == 'Q')
-        {
-            break;
-        }
     }
 }
 
@@ -332,7 +325,7 @@ void window3::find_playlist( MusicLibrary& lib)
             std::cout << "\n\n\n";
 
             char open_playlist;
-            std::string yahoo = "Press [O] to open the playlist: ";
+            std::string yahoo = "Press [O] to open the playlist/Press any key to go back ";
             print_in_centre(yahoo);
             open_playlist = getch();
 
@@ -342,9 +335,7 @@ void window3::find_playlist( MusicLibrary& lib)
             }
             else
             {
-                std::string s4 = "-- press any key to continue --";
-                print_in_centre(s4);
-                getch();
+                return;
             }
         }
     }
@@ -468,40 +459,52 @@ void window3::display_all_playlists( MusicLibrary& lib)
     print_in_centre(strin);
     getch();
 }
-
 int window3::ret_dis_play_index(MusicLibrary& lib)
 {
     std::cout << "\n\n";
 
-    if  (lib.playlists.size() == 0)
+    if (lib.playlists.size() == 0)
     {
         return -1;
     }
+
     int i = 0;
     while (true)
     {
+        system("cls");
+        std::cout << "+------------------------------------------------------+\n";
+        std::cout << "|                Select Playlist                       |\n";
+        std::cout << "+------------------------------------------------------+\n";
+
         int counter = 0;
         for (auto &a : lib.playlists)
         {
             std::string s2 = "  " + a.PLname() + ", Total Songs = " + std::to_string((a.want_playlist_songs()).size());
             if (counter == i)
             {
-                std::cout << "       ->" << s2;
+                std::cout << "|  --> " << s2;
             }
             else
             {
-                std::cout << "         " << s2;
+                std::cout << "|      " << s2;
             }
+            // Fill the rest of the line with spaces
+            int spaces = 58 - s2.length();
+            for (int j = 0; j < spaces; ++j) std::cout << " ";
+            std::cout << "|\n";
             counter++;
-            std::cout << std::endl;
         }
-        char c;
-        c = getch();
+
+        std::cout << "+------------------------------------------------------+\n";
+        std::cout << "| Use 'w'/'s' to move, Enter to select, 'e' to exit    |\n";
+        std::cout << "+------------------------------------------------------+\n";
+
+        char c = getch();
         if (c == 'w')
         {
             if (i == 0)
             {
-                ;
+                // Do nothing
             }
             else
             {
@@ -524,10 +527,10 @@ int window3::ret_dis_play_index(MusicLibrary& lib)
             return i;
         }
         else if (c == 'e' || c == 'E')
+        {
             break;
-        system("cls");
+        }
     }
-    getch();
     return -1;
 }
 
