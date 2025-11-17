@@ -724,11 +724,11 @@ void window3::print_window3_ui()
     std::cout << std::string(leftPadding, ' ') << "|" << std::string(boxWidth - 2, '_') << "|" << std::endl;
 }
 
-int main()
-{
-    window3 test;
-    MusicLibrary l;
-    test.w3(l);
+// int main()
+// {
+//     window3 test;
+//     MusicLibrary l;
+//     test.w3(l);
 
-    return 0;
-}
+//     return 0;
+// }

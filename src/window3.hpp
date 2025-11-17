@@ -6,8 +6,8 @@
 #include <cstdlib>
 #include <vector>
 #include "models/songClass.hpp"
-#include "Core/playlist.hpp"
-#include "Core/library.hpp"
+#include "playlist.hpp"
+#include "library.hpp"
 #include "mediaplayer.hpp"
 #include <conio.h>
 

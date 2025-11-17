@@ -7,6 +7,7 @@
 #include "playlist.hpp"
 #include "library.hpp"
 #include "mediaplayer.hpp"
+#include "window3.hpp"
 #include "models/songClass.hpp"
 using namespace std;
 class developerwindow
@@ -16,6 +17,7 @@ public:
     {
         dev(ps);
         char ch2 = getch();
+        int local;
         switch (ch2)
         {
         case '1':
@@ -30,7 +32,8 @@ public:
         }
         case '2':
             system("cls");
-            cout << "xxx feature coming soon...\n";
+            local=lib.displayAllSongs();
+            lib.removeSong(local);
             break;
         case '3':
             system("cls");
@@ -65,7 +68,7 @@ public:
                 "Access Granted! Welcome, Developer.",
                 "-------------------------------------",
                 "1. Add a Song.",
-                "2. xxx",
+                "2. Remove a Song.",
                 "3. Exit Developer Mode"};
 
             // Box content
@@ -104,7 +107,8 @@ public:
     void window1()
     {
         MusicLibrary ob2;
-        vector<Song> temp=ob2.stringify();
+        window3 ob3;
+        vector<Song> temp = ob2.stringify();
         for (auto s : temp)
         {
             ob2.addSong(s);
@@ -121,13 +125,19 @@ public:
             {
             case '1':
             {
-                system("cls");
-                 int x = ob2.displayAllSongs();
-                 Song s= ob2.getAllSongs()[x];
+               while(true)
+               {
+                     system("cls");
+                int x = ob2.displayAllSongs();
+                if(x==-1)
+                {
+                    break;
+                }
+                Song s = ob2.getAllSongs()[x];
                 interfacemusicplayer *ptr2 = new interfacemusicplayer(s);
+               }
                 break;
             }
-
             case '2':
             {
                 system("cls");
@@ -150,15 +160,15 @@ public:
             case '3':
             {
                 system("cls");
-                cout << "Playlists feature coming soon...\n";
+                ob3.w3(ob2);
                 break;
             }
 
             case '4':
             {
                 system("cls");
-                 int x = ob2.displayAllSongs();
-                 Song s= ob2.getAllSongs()[x];
+                int x = ob2.displayAllSongs();
+                Song s = ob2.getAllSongs()[x];
                 interfacemusicplayer *ptr2 = new interfacemusicplayer(s);
                 break;
             }
