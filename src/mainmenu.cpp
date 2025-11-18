@@ -168,6 +168,10 @@ public:
             {
                 system("cls");
                 int x = ob2.displayAllSongs();
+                if(x==-1)
+                {
+                    return;
+                }
                 Song s = ob2.getAllSongs()[x];
                 interfacemusicplayer *ptr2 = new interfacemusicplayer(s);
                 break;
