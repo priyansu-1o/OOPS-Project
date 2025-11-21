@@ -11,11 +11,8 @@ void Playlist::removeSong(int i){
     songs.erase(songs.begin()+i);
 }
 int Playlist::totalduration(){
-    int totalSec=0;
-    for(const auto &song:songs){
-        totalSec += song.getDuration();
-    }
-    return totalSec;
+    // Using the template function
+    return calculateTotalDuration(songs);
 }
 // Required headers: <iostream>, <vector>, <string>, <conio.h>, <stdlib.h>
 
