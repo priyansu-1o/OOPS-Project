@@ -33,6 +33,8 @@ public:
         case '2':
             system("cls");
             local=lib.displayAllSongs();
+            if(local==-1)
+                return;
             lib.removeSong(local);
             break;
         case '3':
@@ -170,6 +172,7 @@ public:
                 int x = ob2.displayAllSongs();
                 if(x==-1)
                 {
+                    system("cls");
                     continue;
                 }
                 Song s = ob2.getAllSongs()[x];
@@ -192,6 +195,10 @@ public:
             {
                 system("cls");
                 cout << "Exiting and saving...\n";
+                 // Convert ob2 to JSON
+               vector<Song> vs;
+               vs=ob2.getAllSongs();
+               ob2.jsonify(vs);
                 return;
             }
 

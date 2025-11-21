@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+#include <thread>
+#include <chrono>
 #include <string>
 #include<windows.h>
 #include <cstdlib> 
@@ -9,7 +11,6 @@
 #include "mediaplayer.hpp"
 #include<conio.h>
 #include "window3.hpp"
-
  int totalCols = 150;
  int boxWidth = 60;
 
@@ -88,7 +89,8 @@ void window3::manage_single_playlist(int playlist_index, MusicLibrary& lib)
             "3. Display All Songs",
             "4. Play a Song",
             "5. Get Total Duration",
-            "6. Back to Main Menu"};
+            "6. Back to Main Menu",
+             "7.Play playlist in loop"                       };
 
         for (const std::string &line : lines)
         {
@@ -132,6 +134,9 @@ void window3::manage_single_playlist(int playlist_index, MusicLibrary& lib)
             break;
         case '6':
             return;
+        case '7':
+                play_playlist(playlist_index,lib);    
+                break;
         default:
             std::cout << "Invalid Choice!";
             getch();
@@ -208,7 +213,41 @@ void window3::remove_song_from_specific_playlist(int playlist_index,  MusicLibra
         lib.playlists[playlist_index].removeSong(dltindex);
     }
 }
+ void window3::play_playlist(int playlist_index,MusicLibrary& lib)
+ {
+    system("cls");
+    int i = lib.playlists[playlist_index].displaySongs();
+    if(i==-1)
+        return;
+    std::vector<Song> v = lib.playlists[playlist_index].want_playlist_songs();
+    for(int j=i;j<v.size();j++)
+    {   
+            Song s = v[j];
+            interfacemusicplayer p(s);
+            if(j==v.size()-1)
+            {
+                j=-1;
+            }
+            cout<<endl;
+            cout<<"press [Q|q] to return"<<endl;
+    std::string input;
+    bool received = false;
 
+    for (int i = 0; i < 40; i++) {  // 100 × 100ms = 10 seconds
+        if (_kbhit()) {   
+             char key = toupper(_getch());            // user pressed something
+            if(key=='q'||key=='Q')
+           { received = true;
+            break;}
+        }
+     Sleep(100); 
+    }
+    if(received==true)
+    {
+        return;
+    }
+    }
+ }
 void window3::play_song_from_specific_playlist(int playlist_index,MusicLibrary& lib)
 {
     system("cls");
@@ -663,7 +702,7 @@ void window3::w3( MusicLibrary& lib)
         }
         case '8':
         {
-            break;
+            return;
         }
         default:
         {

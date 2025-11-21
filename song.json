@@ -38,7 +38,7 @@
         "genre": "Folk",
         "id": "",
         "title": "Jhol"
-    },  
+    },
     {
         "artist": "Arijit Singh",
         "duration": 223,
@@ -70,5 +70,13 @@
         "genre": "Pop",
         "id": "",
         "title": "Dandelions"
+    },
+    {
+        "artist": "Mehdi Hassan",
+        "duration": 294,
+        "filepath": "src/lib/mai jis din.wav",
+        "genre": "Gazal",
+        "id": "",
+        "title": "Mai jis din bhula du"
     }
 ]

@@ -32,6 +32,7 @@ public:
     void add_song_to_specific_playlist(int playlist_index,  MusicLibrary& lib);
     void remove_song_from_specific_playlist(int playlist_index,  MusicLibrary& lib);
     void play_song_from_specific_playlist(int playlist_index,  MusicLibrary& lib);
+    void play_playlist(int playlist_index,MusicLibrary& lib);
     void just_display_playlists( MusicLibrary& lib);
     void add_song_to_playlist( MusicLibrary& lib);
     void remove_song_from_playlist( MusicLibrary& lib);
